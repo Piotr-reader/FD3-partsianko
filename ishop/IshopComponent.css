@@ -1,0 +1,34 @@
+.IshopComponent {
+  border: double gray 3px;
+  padding: 3px 7px;
+  background-color: #f0f0f0;
+}
+
+.NameIshop {
+  text-align: center;
+  padding-top: 5px;
+}
+.good {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: solid;
+  padding: 10px 0;
+}
+
+.Good {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.Price {
+  font-weight: bold;
+  text-align: right;
+}
+
+.Quantity {
+  margin-left: 20px;
+}
+.img {
+  width: 100px;
+  height: 100px;
+}
