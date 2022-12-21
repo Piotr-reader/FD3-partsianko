@@ -13,15 +13,35 @@ const IshopComponent = React.createClass({
       })
     ),
   },
+  changeColor: function (EO) {
+    let color = "red";
+    if (EO.currentTarget.style.backgroundColor === "red") {
+      color = "gray";
+    }
+    this.setState({ goods: (EO.currentTarget.style.backgroundColor = color) });
+  },
+
+  deleteItem: function (e) {
+    e.stopPropagation();
+    let confirmTrue = confirm("Удалить?");
+    if (confirmTrue) {
+      var deleter = this.props.goods.map((item, index) => {
+        if (item.code === +e.target.className) {
+          this.setState({ goods: delete this.props.goods[index] });
+        }
+      });
+    }
+  },
 
   render: function () {
     var goodCode = this.props.goods.map((item) =>
       React.DOM.div(
-        { key: item.code, className: "good" },
+        { key: item.code, className: "good", onClick: this.changeColor },
         React.DOM.span({ className: "Good" }, item.good),
         React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
         React.DOM.img({ className: "img", src: item.img, alt: "img" }),
-        React.DOM.span({ className: "Price" }, item.price + "руб")
+        React.DOM.span({ className: "Price" }, item.price + "руб"),
+        React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItem })
       )
     );
     return React.DOM.div(
