@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ishop</title>
+    <title>Ishop2</title>
   </head>
   <body>
     <div id="container"></div>
@@ -14,15 +14,17 @@
 
     <script src="IshopComponent.js"></script>
     <link rel="stylesheet" type="text/css" href="IshopComponent.css" />
-
+    <script src="Shop.js"></script>
+    <link rel="stylesheet" type="text/css" href="Shop.css" />
     <script>
       var nameIshop = "Ishop";
       var goodsShop = [
-        { good: "шапка", code: 1, price: 20, quantity: 5, img: "./img1.jpg" },
-        { good: "перчатки", code: 2, price: 12, quantity: 2, img: "./img3.jpg" },
-        { good: "валенки", code: 3, price: 40, quantity: 15, img: "./img2.jpg" },
+        { shop: "shop1", good: "шапка", code: 1, price: 20, quantity: 5, img: "./img1.jpg" },
+        { shop: "shop2", good: "перчатки", code: 2, price: 12, quantity: 2, img: "./img3.jpg" },
+        { shop: "shop3", good: "валенки", code: 3, price: 40, quantity: 15, img: "./img2.jpg" },
       ];
-      ReactDOM.render(React.createElement(IshopComponent, { nameIshop: nameIshop, goods: goodsShop }), document.getElementById("container"));
+
+      ReactDOM.render(React.createElement(IshopComponent, { nameIshop: nameIshop, goods: goodsShop, shop: Shop }), document.getElementById("container"));
     </script>
   </body>
 </html>
