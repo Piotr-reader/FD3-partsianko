@@ -4,31 +4,31 @@
   background-color: #f0f0f0;
 }
 
-.NameIshop {
+.IshopComponent .NameIshop {
   text-align: center;
   padding-top: 5px;
 }
-.good {
+
+.IshopComponent .Goods .good {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-top: solid;
   padding: 10px 0;
 }
-
-.Good {
+.IshopComponent .Goods .Good {
   font-weight: bold;
   text-transform: capitalize;
 }
-.Price {
+.IshopComponent .Goods .Price {
   font-weight: bold;
   text-align: right;
 }
 
-.Quantity {
+.IshopComponent .Goods .Quantity {
   margin-left: 20px;
 }
-.img {
+.IshopComponent .Goods .img {
   width: 100px;
   height: 100px;
 }
