@@ -38,7 +38,6 @@ const IshopComponent = React.createClass({
       React.DOM.div(
         { key: item.code, className: "good", onClick: this.changeColor },
         React.DOM.div({ className: "shop" }, this.props.shop),
-        console.log(this.props.shop),
         React.DOM.span({ className: "Good" }, item.good),
         React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
         React.DOM.img({ className: "img", src: item.img, alt: "img" }),
