@@ -13,12 +13,18 @@ const IshopComponent = React.createClass({
       })
     ),
   },
+  getInitialState: function () {
+    return {};
+  },
   changeColor: function (EO) {
-    let color = "red";
-    if (EO.currentTarget.style.backgroundColor === "red") {
-      color = "gray";
-    }
-    this.setState({ goods: (EO.currentTarget.style.backgroundColor = color) });
+    const a = document.querySelectorAll(`.${EO.currentTarget.className}`);
+    [...a].forEach((item) => {
+      if (EO.currentTarget === item && EO.currentTarget.style.backgroundColor === "gray") {
+        EO.currentTarget.style.backgroundColor = "red";
+      } else {
+        item.style.backgroundColor = "gray";
+      }
+    });
   },
 
   deleteItem: function (e) {
