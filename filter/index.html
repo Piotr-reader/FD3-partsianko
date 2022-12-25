@@ -15,11 +15,9 @@
     <script src="Filter.js"></script>
     <link rel="stylesheet" type="text/css" href="Filter.css" />
     <script>
-      var defValCheckbox = false;
-      var defValText = "";
       var string = ["california", "everything", "aboveboard", "washington", "basketball", "weathering", "characters", "literature", "contraband", "appreciate"];
 
-      ReactDOM.render(React.createElement(Filter, { string: string, defVal: defValCheckbox, defvaltext: defValText }), document.getElementById("container"));
+      ReactDOM.render(React.createElement(Filter, { string: string }), document.getElementById("container"));
     </script>
   </body>
 </html>
