@@ -8,27 +8,26 @@
   padding-top: 5px;
 }
 
-.IshopComponent .Goods .good {
+.IshopComponent .Items {
   background-color: gray;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   border-top: solid;
   padding: 10px 0;
 }
-.IshopComponent .Goods .Good {
+.IshopComponent .Items .Item {
   font-weight: bold;
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.IshopComponent .Goods .Price {
-  font-weight: bold;
+.IshopComponent .Items .Item .Price {
   text-align: right;
 }
 
-.IshopComponent .Goods .Quantity {
+.IshopComponent .Items .Item .Quantity {
   margin-left: 20px;
 }
-.IshopComponent .Goods .img {
+.IshopComponent .Items .Item .Img {
   width: 100px;
   height: 100px;
 }
