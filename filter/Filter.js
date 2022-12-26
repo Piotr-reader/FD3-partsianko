@@ -19,40 +19,34 @@ const Filter = React.createClass({
   },
 
   resetFn: function () {
-    this.setState({ isSort: false, filter: "" },this.textAreaChange);
+    this.setState({ isSort: false, filter: "" }, this.textAreaChange);
   },
 
   textAreaChange: function () {
     let newStr = [];
-    if (this.state.filter) {
-      this.props.string.forEach((item) => {
-        if (item.match(new RegExp(this.state.filter))) {
-          newStr.push(item);
-        }
-      });
-      if (this.state.isSort) {
-        newStr = newStr.sort();
-      }
-      this.setState({ text: newStr });
-    }
+    this.state.filter
+      ? this.props.string.forEach((item) => {
+          if (item.match(new RegExp(this.state.filter))) {
+            newStr.push(item);
+          }
+        })
+      : (newStr = this.props.string.slice());
 
-    if (this.state.filter === "") {
-      newStr=this.props.string.slice();
-      if (this.state.isSort) {
+    if (this.state.isSort) {
       newStr = newStr.sort();
-      }
-      this.setState({ text: newStr });
     }
-
+    this.setState({ text: newStr });
   },
   Fn: function () {},
   render: function () {
     return React.DOM.div(
       { className: "Filter" },
-      React.DOM.div({className: "form"},
-      React.DOM.input({ className: "checkbox", type: "checkbox", checked: this.state.isSort, onClick: this.sortArr }),
-      React.DOM.input({ className: "textInput", type: "text", value: this.state.filter, onChange: this.filterArr }),
-      React.DOM.input({ type: "button", defaultValue: "сброс", onClick: this.resetFn })),
+      React.DOM.div(
+        { className: "form" },
+        React.DOM.input({ className: "checkbox", type: "checkbox", checked: this.state.isSort, onClick: this.sortArr }),
+        React.DOM.input({ className: "textInput", type: "text", value: this.state.filter, onChange: this.filterArr }),
+        React.DOM.input({ type: "button", defaultValue: "сброс", onClick: this.resetFn })
+      ),
       React.DOM.div(null, React.DOM.textarea({ className: "text", value: this.state.text.join("\n"), onChange: this.Fn }))
     );
   },
