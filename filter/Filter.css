@@ -1,5 +1,11 @@
+.Filter {
+  margin: 45px;
+}
+.Filter .form {
+  display: flex;
+}
 .Filter .text {
-  width: 191px;
-  height: 90px;
+  width: 255px;
+  height: 190px;
   margin-top: 15px;
 }

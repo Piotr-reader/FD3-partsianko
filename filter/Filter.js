@@ -19,35 +19,40 @@ const Filter = React.createClass({
   },
 
   resetFn: function () {
-    this.setState({ isSort: false, filter: "", text: this.props.string.slice() });
+    this.setState({ isSort: false, filter: "" },this.textAreaChange);
   },
+
   textAreaChange: function () {
+    let newStr = [];
     if (this.state.filter) {
-      let newStr = [];
-      this.props.string.slice().map((item) => {
+      this.props.string.forEach((item) => {
         if (item.match(new RegExp(this.state.filter))) {
           newStr.push(item);
         }
       });
+      if (this.state.isSort) {
+        newStr = newStr.sort();
+      }
       this.setState({ text: newStr });
     }
+
     if (this.state.filter === "") {
-      this.setState({ text: this.props.string.slice() });
+      newStr=this.props.string.slice();
+      if (this.state.isSort) {
+      newStr = newStr.sort();
+      }
+      this.setState({ text: newStr });
     }
 
-    setTimeout(() => {
-      if (this.state.isSort) {
-        this.setState({ text: this.state.text.sort() });
-      }
-    }, 0);
   },
   Fn: function () {},
   render: function () {
     return React.DOM.div(
       { className: "Filter" },
+      React.DOM.div({className: "form"},
       React.DOM.input({ className: "checkbox", type: "checkbox", checked: this.state.isSort, onClick: this.sortArr }),
       React.DOM.input({ className: "textInput", type: "text", value: this.state.filter, onChange: this.filterArr }),
-      React.DOM.input({ type: "button", defaultValue: "сброс", onClick: this.resetFn }),
+      React.DOM.input({ type: "button", defaultValue: "сброс", onClick: this.resetFn })),
       React.DOM.div(null, React.DOM.textarea({ className: "text", value: this.state.text.join("\n"), onChange: this.Fn }))
     );
   },
