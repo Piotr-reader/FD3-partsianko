@@ -14,20 +14,16 @@
 
     <script src="Shop.js"></script>
     <link rel="stylesheet" type="text/css" href="Shop.css" />
-    <script src="IshopComponent.js"></script>
-    <link rel="stylesheet" type="text/css" href="IshopComponent.css" />
+    <script src="Item.js"></script>
+    <link rel="stylesheet" type="text/css" href="Item.css" />
     <script>
-      var nameIshop = "Ishop";
-      var goodsShop = [
-        { shop: "shop1", good: "шапка", code: 1, price: 20, quantity: 5, img: "./img1.jpg" },
-        { shop: "shop2", good: "перчатки", code: 2, price: 12, quantity: 2, img: "./img3.jpg" },
-        { shop: "shop3", good: "валенки", code: 3, price: 40, quantity: 15, img: "./img2.jpg" },
+      var itemShop = [
+        { shop: "shop1", item: "шапка", code: 1, price: 20, quantity: 5, img: "./img1.jpg", isSelected: false },
+        { shop: "shop2", item: "перчатки", code: 2, price: 12, quantity: 2, img: "./img3.jpg", isSelected: false },
+        { shop: "shop3", item: "валенки", code: 3, price: 40, quantity: 15, img: "./img2.jpg", isSelected: false },
       ];
 
-
-      ReactDOM.render(React.createElement(
-
-      IshopComponent, { nameIshop: nameIshop, goods: goodsShop}), document.getElementById("container"));
+      ReactDOM.render(React.createElement(Item, { startItem: itemShop }), document.getElementById("container"));
     </script>
   </body>
 </html>

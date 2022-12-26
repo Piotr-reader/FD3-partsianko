@@ -1,27 +1,33 @@
-
-
-const IshopComponent = React.createClass({
-  displayName: "IshopComponent",
+const Item = React.createClass({
+  displayName: "Item",
 
   propTypes: {
-    nameIshop: React.PropTypes.string.isRequired,
-    goods: React.PropTypes.arrayOf(
+    startItem: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         code: React.PropTypes.number.isRequired,
         price: React.PropTypes.number.isRequired,
         quantity: React.PropTypes.number.isRequired,
         img: React.PropTypes.string.isRequired,
-        good: React.PropTypes.string.isRequired,
+        item: React.PropTypes.string.isRequired,
+        isSelected: React.PropTypes.bool.isRequired,
       })
     ),
   },
   getInitialState: function () {
     return {
       // changeColor: color,
-      deleteItem: this.props.goods.slice()
+      selectedItemCode: "",
+      deleteItem: this.props.startItem.slice(),
     };
   },
   changeColor: function (EO) {
+    this.state.deleteItem.forEach((item) => {
+      if (item.code === +EO.target.className) {
+        item.isSelected = true;
+      } else {
+        item.isSelected = false;
+      }
+    });
     // const a = document.querySelectorAll(`.${EO.currentTarget.className}`);
     // [...a].forEach((item) => {
     //   if (EO.currentTarget === item && EO.currentTarget.style.backgroundColor === "gray") {
@@ -34,35 +40,29 @@ const IshopComponent = React.createClass({
 
   deleteItem: function (EO) {
     EO.stopPropagation();
-    let newGoods = this.state.deleteItem;
-    let confirmTrue = confirm("Удалить?");
-    if (confirmTrue) {
-      newGoods.forEach((item, index) => {
-        if (item.code === +EO.target.className) {
-          delete newGoods[index]
-        }
-        this.setState({ deleteItem: newGoods });
-      });
-    }
+    // let newItem = this.state.deleteItem;
+    // let confirmTrue = confirm("Удалить?");
+    // if (confirmTrue) {
+    //   newItem.forEach((item, index) => {
+    //     if (item.code === +EO.target.className) {
+    //       delete newItem[index];
+    //     }
+    //     this.setState({ deleteItem: newItem });
+    //   });
+    // }
   },
 
-
   render: function () {
-
-    var goodCode = this.state.deleteItem.map((item) =>
+    var itemCode = this.state.deleteItem.map((item) =>
       React.DOM.div(
         { key: item.code, className: "Item", onClick: this.changeColor },
-        React.DOM.span({ className: "Name" }, item.good),
+        React.DOM.span({ className: "Name" }, item.item),
         React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
         React.DOM.img({ className: "Img", src: item.img, alt: "img" }),
         React.DOM.span({ className: "Price" }, item.price + "руб"),
         React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItem })
       )
     );
-    return React.DOM.div(
-      { className: "IshopComponent" },
-      React.DOM.div({ className: "NameIshop" }, this.props.nameIshop),
-      React.DOM.div({ className: "Items" }, goodCode),
-    );
+    return React.DOM.div({ className: "Item" }, React.DOM.div({ className: "Items" }, itemCode));
   },
 });

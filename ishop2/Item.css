@@ -1,33 +1,33 @@
-.IshopComponent {
+.Item {
   border: double gray 3px;
   padding: 3px 7px;
 }
 
-.IshopComponent .NameIshop {
+.Item .NameIshop {
   text-align: center;
   padding-top: 5px;
 }
 
-.IshopComponent .Items {
+.Item .Items {
   background-color: gray;
   border-top: solid;
   padding: 10px 0;
 }
-.IshopComponent .Items .Item {
+.Item .Items .Item {
   font-weight: bold;
   text-transform: capitalize;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.IshopComponent .Items .Item .Price {
+.Item .Items .Item .Price {
   text-align: right;
 }
 
-.IshopComponent .Items .Item .Quantity {
+.Item .Items .Item .Quantity {
   margin-left: 20px;
 }
-.IshopComponent .Items .Item .Img {
+.Item .Items .Item .Img {
   width: 100px;
   height: 100px;
 }
