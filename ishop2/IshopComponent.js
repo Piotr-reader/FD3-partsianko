@@ -18,7 +18,7 @@ const IshopComponent = React.createClass({
   getInitialState: function () {
     return {
       // changeColor: color,
-      deleteItem: this.props.goods
+      deleteItem: this.props.goods.slice()
     };
   },
   changeColor: function (EO) {
@@ -34,13 +34,14 @@ const IshopComponent = React.createClass({
 
   deleteItem: function (EO) {
     EO.stopPropagation();
+    let newGoods = this.state.deleteItem;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-        this.props.goods.forEach((item, index) => {
+      newGoods.forEach((item, index) => {
         if (item.code === +EO.target.className) {
-          delete this.props.goods[index]
-          this.setState({ deleteItem: this.props.goods });
+          delete newGoods[index]
         }
+        this.setState({ deleteItem: newGoods });
       });
     }
   },
