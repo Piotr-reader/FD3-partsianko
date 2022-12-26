@@ -2,6 +2,7 @@ const Item = React.createClass({
   displayName: "Item",
 
   propTypes: {
+    shop: React.PropTypes.string.isRequired,
     startItem: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         code: React.PropTypes.number.isRequired,
@@ -17,7 +18,7 @@ const Item = React.createClass({
     return {
       // changeColor: color,
       selectedItemCode: "",
-      deleteItem: this.props.startItem.slice(),
+      deleteItem: this.props.startItem,
     };
   },
   changeColor: function (EO) {
@@ -53,16 +54,19 @@ const Item = React.createClass({
   },
 
   render: function () {
-    var itemCode = this.state.deleteItem.map((item) =>
-      React.DOM.div(
-        { key: item.code, className: "Item", onClick: this.changeColor },
-        React.DOM.span({ className: "Name" }, item.item),
-        React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
-        React.DOM.img({ className: "Img", src: item.img, alt: "img" }),
-        React.DOM.span({ className: "Price" }, item.price + "руб"),
-        React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItem })
-      )
-    );
+    var itemCode = this.state.deleteItem.map((item) => {
+      if (item.shop === this.props.shop) {
+        return React.DOM.div(
+          { key: item.code, className: "Item", onClick: this.changeColor },
+          React.DOM.span({ className: "Name" }, item.item),
+          React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
+          React.DOM.img({ className: "Img", src: item.img, alt: "img" }),
+          React.DOM.span({ className: "Price" }, item.price + "руб"),
+          React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItem })
+        );
+      }
+    });
+
     return React.DOM.div({ className: "Item" }, React.DOM.div({ className: "Items" }, itemCode));
   },
 });
