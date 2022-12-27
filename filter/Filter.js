@@ -23,15 +23,7 @@ const Filter = React.createClass({
   },
 
   textAreaChange: function () {
-    let newStr = [];
-    this.state.filter
-      ? this.props.string.forEach((item) => {
-          if (item.match(new RegExp(this.state.filter))) {
-            newStr.push(item);
-          }
-        })
-      : (newStr = this.props.string.slice());
-
+    let newStr = this.props.string.filter((word) => word.includes(this.state.filter));
     if (this.state.isSort) {
       newStr = newStr.sort();
     }
