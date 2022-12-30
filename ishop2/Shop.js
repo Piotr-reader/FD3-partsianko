@@ -15,20 +15,21 @@ const Shop = React.createClass({
       selectedItemCode: "",
     };
   },
-  cbSelectedItem: function (code) {
-    this.setState({ selectedItemCode: code });
-    console.log(selectedItemCode);
+  cbSelectedItem: function (EO) {
+    let code = EO.target.getAttribute("data");
+    this.setState({ selectedItemCode: code }, this.changeColor);
   },
-
+  changeColor: function () {
+    console.log(+this.state.selectedItemCode);
+  },
   render: function () {
-    let shopName = this.state.item.map((item) =>
-      React.DOM.div(
-        { key: item.code, className: "component" },
-        React.DOM.span({ key: item.code, className: "nameShop" }, item.shop),
-        React.createElement(Item, { startItem: this.props.startItem, shop: item.shop })
-      )
-    );
-
+    let shopName = this.state.item.map((item) => {
+      return React.DOM.div(
+        { key: item.code, className: "component", onClick: this.cbSelectedItem },
+        React.DOM.span({ className: "nameShop" }, item.shop),
+        React.createElement(Item, { startItem: item })
+      );
+    });
     return React.DOM.div({ className: "Shop" }, shopName);
   },
 });

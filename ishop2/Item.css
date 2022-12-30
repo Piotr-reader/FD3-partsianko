@@ -3,31 +3,28 @@
   padding: 3px 7px;
 }
 
-.Item .NameIshop {
-  text-align: center;
-  padding-top: 5px;
-}
-
-.Item .Items {
-  background-color: gray;
-  border-top: solid;
-  padding: 10px 0;
-}
-.Item .Items .Item {
-  font-weight: bold;
-  text-transform: capitalize;
+.Item .NameItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 5px;
+  background-color: gray;
+  border-top: solid;
+  padding: 10px 0;
+  font-weight: bold;
+  text-transform: capitalize;
 }
-.Item .Items .Item .Price {
+
+.Item .NameItem .Item {
+}
+.Item .NameItem .Price {
   text-align: right;
 }
 
-.Item .Items .Item .Quantity {
+.Item .NameItem .Quantity {
   margin-left: 20px;
 }
-.Item .Items .Item .Img {
+.Item .NameItem .Img {
   width: 100px;
   height: 100px;
 }

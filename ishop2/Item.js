@@ -2,44 +2,15 @@ const Item = React.createClass({
   displayName: "Item",
 
   propTypes: {
-    shop: React.PropTypes.string.isRequired,
-    startItem: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        code: React.PropTypes.number.isRequired,
-        price: React.PropTypes.number.isRequired,
-        quantity: React.PropTypes.number.isRequired,
-        img: React.PropTypes.string.isRequired,
-        item: React.PropTypes.string.isRequired,
-        isSelected: React.PropTypes.bool.isRequired,
-      })
-    ),
+    startItem: React.PropTypes.object.isRequired,
   },
   getInitialState: function () {
     return {
-      // changeColor: color,
-      selectedItemCode: "",
       deleteItem: this.props.startItem,
     };
   },
-  changeColor: function (EO) {
-    this.state.deleteItem.forEach((item) => {
-      if (item.code === +EO.target.className) {
-        item.isSelected = true;
-      } else {
-        item.isSelected = false;
-      }
-    });
-    // const a = document.querySelectorAll(`.${EO.currentTarget.className}`);
-    // [...a].forEach((item) => {
-    //   if (EO.currentTarget === item && EO.currentTarget.style.backgroundColor === "gray") {
-    //     EO.currentTarget.style.backgroundColor = "red";
-    //   } else {
-    //     item.style.backgroundColor = "gray";
-    //   }
-    // });
-  },
 
-  deleteItem: function (EO) {
+  deleteItemFn: function (EO) {
     EO.stopPropagation();
     // let newItem = this.state.deleteItem;
     // let confirmTrue = confirm("Удалить?");
@@ -54,19 +25,17 @@ const Item = React.createClass({
   },
 
   render: function () {
-    var itemCode = this.state.deleteItem.map((item) => {
-      if (item.shop === this.props.shop) {
-        return React.DOM.div(
-          { key: item.code, className: "Item", onClick: this.changeColor },
-          React.DOM.span({ className: "Name" }, item.item),
-          React.DOM.span({ className: "Quantity" }, item.quantity + "шт"),
-          React.DOM.img({ className: "Img", src: item.img, alt: "img" }),
-          React.DOM.span({ className: "Price" }, item.price + "руб"),
-          React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItem })
-        );
-      }
-    });
+    if (!this.state.deleteItem.isSelected) {
+      var itemCode = React.DOM.div(
+        { key: this.props.startItem.code, className: "NameItem", data: this.props.startItem.code },
+        React.DOM.span({ className: "Name" }, this.state.deleteItem.item),
+        React.DOM.span({ className: "Quantity" }, this.state.deleteItem.quantity + "шт"),
+        React.DOM.img({ className: "Img", src: this.state.deleteItem.img, alt: "img" }),
+        React.DOM.span({ className: "Price" }, this.state.deleteItem.price + "руб"),
+        React.DOM.input({ className: this.state.deleteItem.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
+      );
+    }
 
-    return React.DOM.div({ className: "Item" }, React.DOM.div({ className: "Items" }, itemCode));
+    return React.DOM.div({ className: "Item", data: this.state.deleteItem.isSelected }, itemCode);
   },
 });
