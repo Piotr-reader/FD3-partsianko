@@ -3,39 +3,33 @@ const Item = React.createClass({
 
   propTypes: {
     startItem: React.PropTypes.object.isRequired,
+    selectedItemCode: React.PropTypes.number.isRequired,
+    curColor: React.PropTypes.string.isRequired,
   },
   getInitialState: function () {
     return {
-      deleteItem: this.props.startItem,
+      colorItem: "gray",
     };
   },
-
-  deleteItemFn: function (EO) {
-    EO.stopPropagation();
-    // let newItem = this.state.deleteItem;
-    // let confirmTrue = confirm("Удалить?");
-    // if (confirmTrue) {
-    //   newItem.forEach((item, index) => {
-    //     if (item.code === +EO.target.className) {
-    //       delete newItem[index];
-    //     }
-    //     this.setState({ deleteItem: newItem });
-    //   });
-    // }
+  changecolor: function () {
+    let color = "gray";
+    if (this.props.selectedItemCode === this.props.startItem.code && this.props.curColor !== "red") {
+      color = "red";
+    }
+    this.state.colorItem = color;
   },
 
   render: function () {
-    if (!this.state.deleteItem.isSelected) {
-      var itemCode = React.DOM.div(
-        { key: this.props.startItem.code, className: "NameItem", data: this.props.startItem.code },
-        React.DOM.span({ className: "Name" }, this.state.deleteItem.item),
-        React.DOM.span({ className: "Quantity" }, this.state.deleteItem.quantity + "шт"),
-        React.DOM.img({ className: "Img", src: this.state.deleteItem.img, alt: "img" }),
-        React.DOM.span({ className: "Price" }, this.state.deleteItem.price + "руб"),
-        React.DOM.input({ className: this.state.deleteItem.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
-      );
-    }
+    this.changecolor();
 
-    return React.DOM.div({ className: "Item", data: this.state.deleteItem.isSelected }, itemCode);
+    var itemCode = React.DOM.div(
+      { key: this.props.startItem.code, className: "NameItem", data: this.props.startItem.code, style: { backgroundColor: this.state.colorItem } },
+      React.DOM.span({ className: "Name" }, this.props.startItem.item),
+      React.DOM.span({ className: "Quantity" }, this.props.startItem.quantity + "шт"),
+      React.DOM.img({ className: "Img", src: this.props.startItem.img, alt: "img" }),
+      React.DOM.span({ className: "Price" }, this.props.startItem.price + "руб")
+    );
+
+    return React.DOM.div({ className: "Item" }, itemCode);
   },
 });
