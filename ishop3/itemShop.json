@@ -1,5 +1,5 @@
 [
-  { "shop": "shop1", "item": "шапка", "code": 1, "price": 20, "quantity": 5, "img": "./img1.jpg", "isSelected": false },
-  { "shop": "shop2", "item": "перчатки", "code": 2, "price": 12, "quantity": 2, "img": "./img3.jpg", "isSelected": false },
-  { "shop": "shop3", "item": "валенки", "code": 3, "price": 40, "quantity": 15, "img": "./img2.jpg", "isSelected": false }
+  { "shop": "shop1", "isColor": false, "item": "шапка", "code": 1, "price": 20, "quantity": 5, "img": "./img1.jpg", "isSelected": false },
+  { "shop": "shop2", "isColor": false, "item": "перчатки", "code": 2, "price": 12, "quantity": 2, "img": "./img3.jpg", "isSelected": false },
+  { "shop": "shop3", "isColor": false, "item": "валенки", "code": 3, "price": 40, "quantity": 15, "img": "./img2.jpg", "isSelected": false }
 ]

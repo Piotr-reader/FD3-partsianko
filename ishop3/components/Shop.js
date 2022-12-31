@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import DOM from "react-dom-factories";
 
 import "./Shop.css";
+import "./Item.css";
 import Item from "./Item";
 
 class Shop extends React.Component {
@@ -16,35 +17,28 @@ class Shop extends React.Component {
   };
   state = {
     item: this.props.startItem.slice(),
-    selectedItemCode: "",
-    curColor: "",
-    isDelete: false,
   };
-  cbSelectedItem = (EO) => {
-    let code = EO.currentTarget.getAttribute("data");
-    let curColor = EO.target.style.backgroundColor;
-    this.setState({ selectedItemCode: code, curColor: curColor });
-  };
+
   deleteItemFn = (EO) => {
     EO.stopPropagation();
     let newItem = this.state.item;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-      newItem.filter(item => {
-        item.code === +EO.target.className? item.isSelected = true:null
-      })
-        this.setState({ item: newItem });
+      newItem.filter((item) => {
+        item.code === +EO.target.className ? (item.isSelected = true) : null;
+      });
+      this.setState({ item: newItem });
     }
   };
   render() {
     let shopName = this.state.item.map((item) => {
       if (!item.isSelected) {
         return DOM.div(
-          { key: item.code, className: "component", onClick: this.cbSelectedItem, data: item.code },
+          { key: item.code, className: "component" },
           DOM.span({ className: "nameShop" }, item.shop),
           DOM.div(
             { className: "test" },
-            React.createElement(Item, { startItem: item, selectedItemCode: +this.state.selectedItemCode, curColor: this.state.curColor }),
+            React.createElement(Item, { startItem: item }),
             DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
           )
         );

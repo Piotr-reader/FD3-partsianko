@@ -1,5 +1,5 @@
 .Item {
-  border: solid gray 3px;
+  border: solid rgba(128, 128, 128, 0.171) 3px;
   padding: 3px 7px;
   width: 100%;
 }
@@ -9,8 +9,6 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 5px;
-  background-color: gray;
-  border-top: solid;
   padding: 10px 0;
   font-weight: bold;
   text-transform: capitalize;
