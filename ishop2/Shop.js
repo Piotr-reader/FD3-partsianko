@@ -27,12 +27,10 @@ const Shop = React.createClass({
     let newItem = this.state.item;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-      newItem.forEach((item) => {
-        if (item.code === +EO.target.className) {
-          item.isSelected = true;
-        }
+      newItem.filter(item => {
+        item.code === +EO.target.className? item.isSelected = true:null
+      })
         this.setState({ item: newItem });
-      });
     }
   },
   render: function () {

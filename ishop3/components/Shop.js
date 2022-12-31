@@ -30,12 +30,10 @@ class Shop extends React.Component {
     let newItem = this.state.item;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-      newItem.forEach((item) => {
-        if (item.code === +EO.target.className) {
-          item.isSelected = true;
-        }
+      newItem.filter(item => {
+        item.code === +EO.target.className? item.isSelected = true:null
+      })
         this.setState({ item: newItem });
-      });
     }
   };
   render() {
@@ -46,7 +44,7 @@ class Shop extends React.Component {
           DOM.span({ className: "nameShop" }, item.shop),
           DOM.div(
             { className: "test" },
-            createElement(Item, { startItem: item, selectedItemCode: +this.state.selectedItemCode, curColor: this.state.curColor }),
+            React.createElement(Item, { startItem: item, selectedItemCode: +this.state.selectedItemCode, curColor: this.state.curColor }),
             DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
           )
         );
