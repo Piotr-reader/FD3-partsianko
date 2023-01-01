@@ -16,7 +16,16 @@ class Shop extends React.Component {
     ),
   };
   state = {
-    item: this.props.startItem.slice(),
+    item: this.props.startItem,
+    selectedItemId: NaN,
+    selectedItemOld: NaN,
+  };
+  selectedItem = (code) => {
+    let select = this.state.selectedItemId;
+    this.setState({ selectedItemId: code, selectedItemOld: select });
+    if (this.state.selectedItemId === this.state.selectedItemOld) {
+      this.setState({ selectedItemOld: NaN });
+    }
   };
 
   deleteItemFn = (EO) => {
@@ -30,7 +39,9 @@ class Shop extends React.Component {
       this.setState({ item: newItem });
     }
   };
+
   render() {
+    let color = "";
     let shopName = this.state.item.map((item) => {
       if (!item.isSelected) {
         return DOM.div(
@@ -38,12 +49,17 @@ class Shop extends React.Component {
           DOM.span({ className: "nameShop" }, item.shop),
           DOM.div(
             { className: "test" },
-            React.createElement(Item, { startItem: item }),
+            React.createElement(Item, {
+              startItem: item,
+              cbSelectedItem: this.selectedItem,
+              color: this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
+            }),
             DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
           )
         );
       }
     });
+
     return DOM.div({ className: "Shop" }, shopName);
   }
 }
