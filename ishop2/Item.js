@@ -3,33 +3,31 @@ const Item = React.createClass({
 
   propTypes: {
     startItem: React.PropTypes.object.isRequired,
-    selectedItemCode: React.PropTypes.number.isRequired,
-    curColor: React.PropTypes.string.isRequired,
+    cbSelectedItem: React.PropTypes.func.isRequired,
+    color: React.PropTypes.string.isRequired,
   },
-  getInitialState: function () {
-    return {
-      colorItem: "gray",
-    };
-  },
-  changecolor: function () {
-    let color = "gray";
-    if (this.props.selectedItemCode === this.props.startItem.code && this.props.curColor !== "red") {
-      color = "red";
-    }
-    this.state.colorItem = color;
+
+  changecolor: function (EO) {
+    this.props.cbSelectedItem(this.props.startItem.code);
   },
 
   render: function () {
-    this.changecolor();
-
     var itemCode = React.DOM.div(
-      { key: this.props.startItem.code, className: "NameItem", data: this.props.startItem.code, style: { backgroundColor: this.state.colorItem } },
+      { key: this.props.startItem.code, className: "NameItem" },
       React.DOM.span({ className: "Name" }, this.props.startItem.item),
       React.DOM.span({ className: "Quantity" }, this.props.startItem.quantity + "шт"),
       React.DOM.img({ className: "Img", src: this.props.startItem.img, alt: "img" }),
       React.DOM.span({ className: "Price" }, this.props.startItem.price + "руб")
     );
 
-    return React.DOM.div({ className: "Item" }, itemCode);
+    return React.DOM.div(
+      {
+        className: "Item",
+        data: this.props.startItem.code,
+        style: { backgroundColor: this.props.color },
+        onClick: this.changecolor,
+      },
+      itemCode
+    );
   },
 });
