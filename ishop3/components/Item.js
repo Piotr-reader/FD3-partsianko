@@ -23,7 +23,13 @@ class Item extends React.Component {
       DOM.img({ className: "Img", src: this.props.startItem.img, alt: "img" }),
       DOM.span({ className: "Price" }, this.props.startItem.price + "руб")
     );
-
+//  let itemCode = <div
+//       key= {this.props.startItem.code} className= "NameItem">
+//       <span className= "Name">{this.props.startItem.item}</span>
+//        <span className= "Quantity">{this.props.startItem.quantity + "шт"}</span>
+//       <img className= "Img" src={this.props.startItem.img} alt="img" />
+//       <span className= "Price">{this.props.startItem.price + "руб"}</span>
+//     </div>
     return DOM.div(
       {
         className: "Item",
@@ -33,6 +39,11 @@ class Item extends React.Component {
       },
       itemCode
     );
+    // return (
+    //   <div className="Item" data={this.props.startItem.code} style={(backgroundColor = this.props.color)} onClick={this.changecolor}>
+    //     {itemCode}
+    //   </div>
+    // );
   }
 }
 export default Item;

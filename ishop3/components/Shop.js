@@ -57,10 +57,21 @@ class Shop extends React.Component {
             DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
           )
         );
+            // return <div key={item.code} className= "component" >
+            //          <span className= "nameShop">{item.shop}<span/>
+            //          <div className= "test">
+            //             <Item startItem= {item}
+            //                   cbSelectedItem= {this.selectedItem}
+            //                   color= {this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}/>
+            //           </div>
+            //           <input className={item.code} type= "button" value= "Delete" onClick= {this.deleteItemFn}/>
+            // </div>
+
       }
     });
 
-    return DOM.div({ className: "Shop" }, shopName);
+    // return DOM.div({ className: "Shop" }, shopName);
+    return <div className="Shop">{shopName}</div>;
   }
 }
 export default Shop;
