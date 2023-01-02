@@ -23,13 +23,12 @@ const Shop = React.createClass({
       this.setState({ selectedItemOld: NaN });
     }
   },
-  deleteItemFn: function (EO) {
-    EO.stopPropagation();
+  cbDeleteItemFn: function (code) {
     let newItem = this.state.item;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
       newItem.filter((item) => {
-        item.code === +EO.target.className ? (item.isSelected = true) : null;
+        item.code === code ? (item.isSelected = true) : null;
       });
       this.setState({ item: newItem });
     }
@@ -47,8 +46,8 @@ const Shop = React.createClass({
               startItem: item,
               cbSelectedItem: this.selectedItem,
               color: this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
-            }),
-            React.DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
+              cbDeleteItemFn: this.cbDeleteItemFn,
+            })
           )
         );
       }

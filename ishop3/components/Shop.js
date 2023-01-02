@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DOM from "react-dom-factories";
 
 import "./Shop.css";
-import "./Item.css";
 import Item from "./Item";
 
 class Shop extends React.Component {
@@ -28,13 +26,12 @@ class Shop extends React.Component {
     }
   };
 
-  deleteItemFn = (EO) => {
-    EO.stopPropagation();
+  cbDeleteItemFn = (code) => {
     let newItem = this.state.item;
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
       newItem.filter((item) => {
-        item.code === +EO.target.className ? (item.isSelected = true) : null;
+        item.code === code ? (item.isSelected = true) : null;
       });
       this.setState({ item: newItem });
     }
@@ -44,33 +41,22 @@ class Shop extends React.Component {
     let color = "";
     let shopName = this.state.item.map((item) => {
       if (!item.isSelected) {
-        return DOM.div(
-          { key: item.code, className: "component" },
-          DOM.span({ className: "nameShop" }, item.shop),
-          DOM.div(
-            { className: "test" },
-            React.createElement(Item, {
-              startItem: item,
-              cbSelectedItem: this.selectedItem,
-              color: this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
-            }),
-            DOM.input({ className: item.code, type: "button", value: "Delete", onClick: this.deleteItemFn })
-          )
+        return (
+          <div key={item.code} className="component">
+            <span className="nameShop">{item.shop}</span>
+            <div className="test">
+              <Item
+                startItem={item}
+                cbSelectedItem={this.selectedItem}
+                cbDeleteItemFn={this.cbDeleteItemFn}
+                color={this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
+              />
+            </div>
+          </div>
         );
-            // return <div key={item.code} className= "component" >
-            //          <span className= "nameShop">{item.shop}<span/>
-            //          <div className= "test">
-            //             <Item startItem= {item}
-            //                   cbSelectedItem= {this.selectedItem}
-            //                   color= {this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}/>
-            //           </div>
-            //           <input className={item.code} type= "button" value= "Delete" onClick= {this.deleteItemFn}/>
-            // </div>
-
       }
     });
 
-    // return DOM.div({ className: "Shop" }, shopName);
     return <div className="Shop">{shopName}</div>;
   }
 }
