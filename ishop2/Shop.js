@@ -17,7 +17,7 @@ const Shop = React.createClass({
   },
   cbSelectedItem: function (code) {
     if (this.state.selectedItemId === code) {
-      return this.setState({ selectedItemId: 0 });
+      code = -1;
     }
     return this.setState({ selectedItemId: code });
   },
