@@ -11,46 +11,41 @@ const Shop = React.createClass({
   },
   getInitialState: function () {
     return {
-      item: this.props.startItem,
+      itemsList: this.props.startItem,
       selectedItemId: NaN,
-      selectedItemOld: NaN,
     };
   },
-  selectedItem: function (code) {
-    let select = this.state.selectedItemId;
-    this.setState({ selectedItemId: code, selectedItemOld: select });
-    if (this.state.selectedItemId === this.state.selectedItemOld) {
-      this.setState({ selectedItemOld: NaN });
-    }
+  cbSelectedItem: function (code) {
+    this.setState({ selectedItemId: code });
   },
   cbDeleteItemFn: function (code) {
-    let newItem = this.state.item;
+    const { itemsList } = this.state;
+    let newItem = [];
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-      newItem.filter((item) => {
-        item.code === code ? (item.isSelected = true) : null;
-      });
-      this.setState({ item: newItem });
+      for (let item of itemsList) {
+        item.code !== code && newItem.push(item);
+      }
+      this.setState({ itemsList: newItem });
     }
   },
   render: function () {
     let color = "";
-    let shopName = this.state.item.map((item) => {
-      if (!item.isSelected) {
-        return React.DOM.div(
-          { key: item.code, className: "component", onClick: this.cbSelectedItem, data: item.code },
-          React.DOM.span({ className: "nameShop" }, item.shop),
-          React.DOM.div(
-            { className: "test" },
-            React.createElement(Item, {
-              startItem: item,
-              cbSelectedItem: this.selectedItem,
-              color: this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
-              cbDeleteItemFn: this.cbDeleteItemFn,
-            })
-          )
-        );
-      }
+    let shopName = this.state.itemsList.map((item) => {
+      return React.DOM.div(
+        { key: item.code, className: "component", data: item.code },
+        React.DOM.span({ className: "nameShop" }, item.shop),
+        React.DOM.div(
+          { className: "test" },
+          React.createElement(Item, {
+            item: item,
+            selectedItemId: this.state.selectedItemId,
+            cbSelectedItem: this.cbSelectedItem,
+            color: this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
+            cbDeleteItemFn: this.cbDeleteItemFn,
+          })
+        )
+      );
     });
     return React.DOM.div({ className: "Shop" }, shopName);
   },
