@@ -16,7 +16,10 @@ const Shop = React.createClass({
     };
   },
   cbSelectedItem: function (code) {
-    this.setState({ selectedItemId: code });
+    if (this.state.selectedItemId === code) {
+      return this.setState({ selectedItemId: 0 });
+    }
+    return this.setState({ selectedItemId: code });
   },
   cbDeleteItemFn: function (code) {
     const { itemsList } = this.state;
@@ -39,7 +42,6 @@ const Shop = React.createClass({
           { className: "test" },
           React.createElement(Item, {
             item: item,
-            selectedItemId: this.state.selectedItemId,
             cbSelectedItem: this.cbSelectedItem,
             color: this.state.selectedItemId === item.code ? (color = "red") : (color = "gray"),
             cbDeleteItemFn: this.cbDeleteItemFn,

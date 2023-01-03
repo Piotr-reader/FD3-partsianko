@@ -3,16 +3,12 @@ const Item = React.createClass({
 
   propTypes: {
     item: React.PropTypes.object.isRequired,
-    selectedItemId: React.PropTypes.number.isRequired,
     cbSelectedItem: React.PropTypes.func.isRequired,
     cbDeleteItemFn: React.PropTypes.func.isRequired,
     color: React.PropTypes.string.isRequired,
   },
 
   changecolor: function () {
-    if (this.props.selectedItemId === this.props.item.code) {
-      return this.props.cbSelectedItem(0);
-    }
     return this.props.cbSelectedItem(this.props.item.code);
   },
   deleteItemFn: function (EO) {
