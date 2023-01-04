@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import "./Shop.css";
 import Item from "./Item";
+import FormAdd from "./FormAdd";
 
 class Shop extends React.Component {
   static propTypes = {
@@ -14,50 +15,50 @@ class Shop extends React.Component {
     ),
   };
   state = {
-    item: this.props.startItem,
+    itemsList: this.props.startItem,
     selectedItemId: NaN,
-    selectedItemOld: NaN,
   };
-  selectedItem = (code) => {
-    let select = this.state.selectedItemId;
-    this.setState({ selectedItemId: code, selectedItemOld: select });
-    if (this.state.selectedItemId === this.state.selectedItemOld) {
-      this.setState({ selectedItemOld: NaN });
-    }
+  cbSelectedItem = (code) => {
+    this.state.selectedItemId === code && (code = -1);
+    this.setState({ selectedItemId: code });
   };
 
   cbDeleteItemFn = (code) => {
-    let newItem = this.state.item;
+    const { itemsList } = this.state;
+    let newItem = [];
     let confirmTrue = confirm("Удалить?");
     if (confirmTrue) {
-      newItem.filter((item) => {
-        item.code === code ? (item.isSelected = true) : null;
-      });
-      this.setState({ item: newItem });
+      for (let item of itemsList) {
+        item.code !== code && newItem.push(item);
+      }
+      this.setState({ itemsList: newItem });
     }
   };
 
   render() {
     let color = "";
-    let shopName = this.state.item.map((item) => {
-      if (!item.isSelected) {
-        return (
-          <div key={item.code} className="component">
-            <span className="nameShop">{item.shop}</span>
-            <div className="test">
-              <Item
-                startItem={item}
-                cbSelectedItem={this.selectedItem}
-                cbDeleteItemFn={this.cbDeleteItemFn}
-                color={this.state.selectedItemId !== this.state.selectedItemOld && this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
-              />
-            </div>
+    let shopName = this.state.itemsList.map((item) => {
+      return (
+        <div key={item.code} className="component">
+          <span className="nameShop">{item.shop}</span>
+          <div className="test">
+            <Item
+              item={item}
+              cbSelectedItem={this.cbSelectedItem}
+              cbDeleteItemFn={this.cbDeleteItemFn}
+              color={this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
+            />
           </div>
-        );
-      }
+        </div>
+      );
     });
 
-    return <div className="Shop">{shopName}</div>;
+    return (
+      <Fragment>
+        <div className="Shop">{shopName}</div>
+        <FormAdd />
+      </Fragment>
+    );
   }
 }
 export default Shop;

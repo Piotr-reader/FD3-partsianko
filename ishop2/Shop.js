@@ -16,10 +16,8 @@ const Shop = React.createClass({
     };
   },
   cbSelectedItem: function (code) {
-    if (this.state.selectedItemId === code) {
-      code = -1;
-    }
-    return this.setState({ selectedItemId: code });
+    this.state.selectedItemId === code && (code = -1);
+    this.setState({ selectedItemId: code });
   },
   cbDeleteItemFn: function (code) {
     const { itemsList } = this.state;
