@@ -17,6 +17,8 @@ class Shop extends React.Component {
   state = {
     itemsList: this.props.startItem,
     selectedItemId: NaN,
+    isFormOpen: false,
+    isBtnDisabled: false
   };
   cbSelectedItem = (code) => {
     this.state.selectedItemId === code && (code = -1);
@@ -34,9 +36,16 @@ class Shop extends React.Component {
       this.setState({ itemsList: newItem });
     }
   };
-
+  cbOpenFormFn = () => {
+    this.setState({ isFormOpen: true,isBtnDisabled: true, selectedItemId: -1});
+  };
+  cbCancelForm = () => {
+    this.setState({ isFormOpen: false,isBtnDisabled: false});
+  };
   render() {
     let color = "";
+    let form;
+    this.state.isFormOpen && (form = <FormAdd cbCancelForm={this.cbCancelForm} />)
     let shopName = this.state.itemsList.map((item) => {
       return (
         <div key={item.code} className="component">
@@ -46,17 +55,21 @@ class Shop extends React.Component {
               item={item}
               cbSelectedItem={this.cbSelectedItem}
               cbDeleteItemFn={this.cbDeleteItemFn}
+              cbOpenFormFn={this.cbOpenFormFn}
               color={this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
+              isBtnDisabled={this.state.isBtnDisabled}
             />
           </div>
         </div>
       );
     });
 
+
     return (
       <Fragment>
         <div className="Shop">{shopName}</div>
-        <FormAdd />
+        <input className="button" type="button" value="Новый" onClick={this.cbOpenFormFn} disabled={this.state.isBtnDisabled}/>
+        <div className="Form">{form}</div>
       </Fragment>
     );
   }

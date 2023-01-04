@@ -4,6 +4,12 @@ import PropTypes from "prop-types";
 import "./FormAdd.css";
 
 class FormAdd extends React.Component {
+  static propTypes = {
+    cbCancelForm: PropTypes.func.isRequired,
+  };
+  cancelForm = () => {
+    this.props.cbCancelForm();
+  }
   render() {
     let form = (
       <form>
@@ -32,7 +38,10 @@ class FormAdd extends React.Component {
         </label>
       </form>
     );
-    return <div className="FormAdd">{form}</div>;
+    return <div className="FormAdd">{form}
+            <input className="button" type="button" value="Сохранить"/>
+            <input className="button" type="button" value="Отмена" onClick={this.cancelForm}/>
+          </div>;
   }
 }
 export default FormAdd;
