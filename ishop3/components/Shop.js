@@ -23,6 +23,7 @@ class Shop extends React.Component {
     isBtnDisabled: false,
     selectedItemFormat: null,
     selectedBtnForm: null,
+    isOpenDescription: false,
   };
   addItem = () => {
     this.setState({ selectedBtnForm: "add" });
@@ -36,9 +37,12 @@ class Shop extends React.Component {
     };
     this.cbOpenFormFn(newItem);
   };
-  cbSelectedItem = (code) => {
-    this.state.selectedItemId === code && (code = null);
-    this.setState({ selectedItemId: code });
+  cbSelectedItem = (code, opendescription) => {
+    if (this.state.selectedItemId === code) {
+      code = null;
+      opendescription = false;
+    }
+    this.setState({ selectedItemId: code, isOpenDescription: opendescription });
   };
   cbDeleteItemFn = (code) => {
     const { itemsList } = this.state;
@@ -52,16 +56,16 @@ class Shop extends React.Component {
     }
   };
   cbOpenFormFn = (item) => {
-    this.setState({ isFormOpen: true, selectedItemId: null, selectedItemFormat: item });
+    this.setState({ isFormOpen: true, selectedItemId: item.code, selectedItemFormat: item, isOpenDescription: false });
   };
   cbDisabledBtns = () => {
     this.setState({ isBtnDisabled: true });
   };
   cbisClickColor = () => {
-    this.setState({ isClickColor: true, selectedItemId: null });
+    this.setState({ isClickColor: true });
   };
   cbCancelForm = () => {
-    this.setState({ isFormOpen: false, isBtnDisabled: false, isClickColor: false });
+    this.setState({ isFormOpen: false, isBtnDisabled: false, isClickColor: false, selectedItemId: null });
   };
   cbSaveForm = (changeItem) => {
     let newItem = this.state.itemsList;
@@ -72,7 +76,7 @@ class Shop extends React.Component {
         item.code === changeItem.code && (newItem[index] = changeItem);
       });
     }
-    this.setState({ itemsList: newItem, selectedBtnForm: null, isClickColor: false });
+    this.setState({ itemsList: newItem, selectedBtnForm: null, isClickColor: false, selectedItemId: null });
   };
   render() {
     let color = "";
@@ -111,7 +115,7 @@ class Shop extends React.Component {
             cbisClickColor={this.cbisClickColor}
           />
         )}
-        {this.state.selectedItemId && <ItemDescription itemsList={this.state.itemsList} selectedItemId={this.state.selectedItemId} />}
+        {this.state.isOpenDescription && <ItemDescription itemsList={this.state.itemsList} selectedItemId={this.state.selectedItemId} />}
       </Fragment>
     );
   }

@@ -86,6 +86,7 @@ class FormAdd extends React.Component {
 
     let form = (
       <form>
+        <h4>ID: {this.state.code}</h4>
         <label>
           Магазин:
           <input ref={this.textShopRef} type="text" value={this.state.textShop} onChange={this.handleChange} />

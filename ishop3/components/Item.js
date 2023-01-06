@@ -19,7 +19,7 @@ class Item extends React.Component {
     if (!this.props.isClickColor) {
       if (!this.props.isBtnDisabled) {
         this.props.cbCancelForm();
-        this.props.cbSelectedItem(this.props.item.code);
+        this.props.cbSelectedItem(this.props.item.code, true);
       }
     }
   };
@@ -27,7 +27,7 @@ class Item extends React.Component {
     EO.stopPropagation();
     this.props.cbDeleteItemFn(this.props.item.code);
   };
-  formatForm = (EO) => {
+  formatFormBtn = (EO) => {
     EO.stopPropagation();
     this.props.cbOpenFormFn(this.props.item);
   };
@@ -40,7 +40,7 @@ class Item extends React.Component {
         <img className="Img" src={this.props.item.img} alt="img" />
         <span className="Price">{this.props.item.price + "руб"}</span>
         <span>
-          <input className="button" type="button" value="Format" onClick={this.formatForm} disabled={this.props.isBtnDisabled} />
+          <input className="button" type="button" value="Format" onClick={this.formatFormBtn} disabled={this.props.isBtnDisabled} />
           <input className="button" type="button" value="Delete" onClick={this.deleteItemFn} disabled={this.props.isBtnDisabled} />
         </span>
       </div>
