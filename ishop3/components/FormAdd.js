@@ -13,6 +13,7 @@ class FormAdd extends React.Component {
     itemsList: PropTypes.array.isRequired,
   };
   state = {
+    code: this.props.selectedItemFormat.code,
     textShop: this.props.selectedItemFormat.shop,
     textItem: this.props.selectedItemFormat.item,
     textQuantity: this.props.selectedItemFormat.quantity,
@@ -20,6 +21,20 @@ class FormAdd extends React.Component {
     selectImg: this.props.selectedItemFormat.img,
     isDisabledBtnSave: true,
   };
+  componentDidUpdate() {
+    if (this.props.selectedItemFormat.code !== this.state.code) {
+      this.setState({
+        code: this.props.selectedItemFormat.code,
+        textShop: this.props.selectedItemFormat.shop,
+        textItem: this.props.selectedItemFormat.item,
+        textQuantity: this.props.selectedItemFormat.quantity,
+        textPrice: this.props.selectedItemFormat.price,
+        selectImg: this.props.selectedItemFormat.img,
+      });
+      return true;
+    }
+  }
+
   textShopRef = React.createRef();
   textItemRef = React.createRef();
   textQuantityRef = React.createRef();
@@ -30,6 +45,7 @@ class FormAdd extends React.Component {
     this.state.textItem && this.state.textQuantity && this.state.textPrice && (flag = false);
     this.setState({ isDisabledBtnSave: flag });
   };
+
   handleChange = () => {
     this.props.cbDisabledBtns();
     this.props.cbisClickColor();
@@ -47,7 +63,7 @@ class FormAdd extends React.Component {
   cancelForm = () => {
     this.props.cbCancelForm();
   };
-  formatForm = () => {
+  saveFormBtn = () => {
     let changeItem = {
       shop: this.state.textShop,
       item: this.state.textItem,
@@ -105,7 +121,7 @@ class FormAdd extends React.Component {
     return (
       <div className="FormAdd">
         {form}
-        <input className="button" type="button" value="Сохранить" onClick={this.formatForm} disabled={this.state.isDisabledBtnSave} />
+        <input className="button" type="button" value="Сохранить" onClick={this.saveFormBtn} disabled={this.state.isDisabledBtnSave} />
         <input className="button" type="button" value="Отмена" onClick={this.cancelForm} />
       </div>
     );
