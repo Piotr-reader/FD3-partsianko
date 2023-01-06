@@ -51,7 +51,11 @@ class Shop extends React.Component {
     }
   };
   cbOpenFormFn = (item) => {
-    this.setState({ isFormOpen: true, isBtnDisabled: true, selectedItemId: null, selectedItemFormat: item });
+    // this.setState({ isFormOpen: true, isBtnDisabled: true, selectedItemId: null, selectedItemFormat: item });
+    this.setState({ isFormOpen: true, selectedItemId: null, selectedItemFormat: item });
+  };
+  cbDisabledBtns = () => {
+    this.setState({ isBtnDisabled: true });
   };
   cbCancelForm = () => {
     this.setState({ isFormOpen: false, isBtnDisabled: false });
@@ -95,6 +99,7 @@ class Shop extends React.Component {
           <FormAdd
             cbCancelForm={this.cbCancelForm}
             cbSaveForm={this.cbSaveForm}
+            cbDisabledBtns={this.cbDisabledBtns}
             selectedItemFormat={this.state.selectedItemFormat}
             selectedBtnForm={this.state.selectedBtnForm}
             itemsList={this.state.itemsList}

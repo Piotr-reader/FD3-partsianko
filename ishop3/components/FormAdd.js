@@ -7,6 +7,7 @@ class FormAdd extends React.Component {
   static propTypes = {
     cbCancelForm: PropTypes.func.isRequired,
     cbSaveForm: PropTypes.func.isRequired,
+    cbDisabledBtns: PropTypes.func.isRequired,
     selectedItemFormat: PropTypes.object.isRequired,
     itemsList: PropTypes.array.isRequired,
   };
@@ -29,6 +30,7 @@ class FormAdd extends React.Component {
     this.setState({ isDisabledBtnSave: flag });
   };
   handleChange = () => {
+    this.props.cbDisabledBtns();
     this.setState(
       {
         textShop: this.textShopRef.current.value,
