@@ -86,6 +86,7 @@ class Shop extends React.Component {
               cbSelectedItem={this.cbSelectedItem}
               cbDeleteItemFn={this.cbDeleteItemFn}
               cbOpenFormFn={this.cbOpenFormFn}
+              cbCancelForm={this.cbCancelForm}
               color={this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
               isBtnDisabled={this.state.isBtnDisabled}
               isClickColor={this.state.isClickColor}

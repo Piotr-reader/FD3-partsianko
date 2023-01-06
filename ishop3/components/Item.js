@@ -12,11 +12,15 @@ class Item extends React.Component {
     color: PropTypes.string.isRequired,
     isBtnDisabled: PropTypes.bool.isRequired,
     isClickColor: PropTypes.bool.isRequired,
+    cbCancelForm: PropTypes.func.isRequired,
   };
 
   changecolor = () => {
     if (!this.props.isClickColor) {
-      !this.props.isBtnDisabled && this.props.cbSelectedItem(this.props.item.code);
+      if (!this.props.isBtnDisabled) {
+        this.props.cbCancelForm();
+        this.props.cbSelectedItem(this.props.item.code);
+      }
     }
   };
   deleteItemFn = (EO) => {
