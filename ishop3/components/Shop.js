@@ -19,6 +19,7 @@ class Shop extends React.Component {
     itemsList: this.props.startItem,
     selectedItemId: null,
     isFormOpen: false,
+    isClickColor: false,
     isBtnDisabled: false,
     selectedItemFormat: null,
     selectedBtnForm: null,
@@ -51,14 +52,16 @@ class Shop extends React.Component {
     }
   };
   cbOpenFormFn = (item) => {
-    // this.setState({ isFormOpen: true, isBtnDisabled: true, selectedItemId: null, selectedItemFormat: item });
     this.setState({ isFormOpen: true, selectedItemId: null, selectedItemFormat: item });
   };
   cbDisabledBtns = () => {
     this.setState({ isBtnDisabled: true });
   };
+  cbisClickColor = () => {
+    this.setState({ isClickColor: true, selectedItemId: null });
+  };
   cbCancelForm = () => {
-    this.setState({ isFormOpen: false, isBtnDisabled: false });
+    this.setState({ isFormOpen: false, isBtnDisabled: false, isClickColor: false });
   };
   cbSaveForm = (changeItem) => {
     let newItem = this.state.itemsList;
@@ -69,7 +72,7 @@ class Shop extends React.Component {
         item.code === changeItem.code && (newItem[index] = changeItem);
       });
     }
-    this.setState({ itemsList: newItem, selectedBtnForm: null });
+    this.setState({ itemsList: newItem, selectedBtnForm: null, isClickColor: false });
   };
   render() {
     let color = "";
@@ -85,6 +88,7 @@ class Shop extends React.Component {
               cbOpenFormFn={this.cbOpenFormFn}
               color={this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
               isBtnDisabled={this.state.isBtnDisabled}
+              isClickColor={this.state.isClickColor}
             />
           </div>
         </div>
@@ -103,6 +107,7 @@ class Shop extends React.Component {
             selectedItemFormat={this.state.selectedItemFormat}
             selectedBtnForm={this.state.selectedBtnForm}
             itemsList={this.state.itemsList}
+            cbisClickColor={this.cbisClickColor}
           />
         )}
         {this.state.selectedItemId && <ItemDescription itemsList={this.state.itemsList} selectedItemId={this.state.selectedItemId} />}

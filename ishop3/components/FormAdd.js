@@ -8,6 +8,7 @@ class FormAdd extends React.Component {
     cbCancelForm: PropTypes.func.isRequired,
     cbSaveForm: PropTypes.func.isRequired,
     cbDisabledBtns: PropTypes.func.isRequired,
+    cbisClickColor: PropTypes.func.isRequired,
     selectedItemFormat: PropTypes.object.isRequired,
     itemsList: PropTypes.array.isRequired,
   };
@@ -31,6 +32,7 @@ class FormAdd extends React.Component {
   };
   handleChange = () => {
     this.props.cbDisabledBtns();
+    this.props.cbisClickColor();
     this.setState(
       {
         textShop: this.textShopRef.current.value,
