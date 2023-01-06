@@ -14,7 +14,7 @@ class Item extends React.Component {
   };
 
   changecolor = () => {
-    !this.props.isBtnDisabled&&this.props.cbSelectedItem(this.props.item.code);
+    !this.props.isBtnDisabled && this.props.cbSelectedItem(this.props.item.code);
   };
   deleteItemFn = (EO) => {
     EO.stopPropagation();
@@ -22,8 +22,8 @@ class Item extends React.Component {
   };
   formatForm = (EO) => {
     EO.stopPropagation();
-    this.props.cbOpenFormFn();
-  }
+    this.props.cbOpenFormFn(this.props.item);
+  };
 
   render() {
     const itemCode = (
@@ -33,11 +33,12 @@ class Item extends React.Component {
         <img className="Img" src={this.props.item.img} alt="img" />
         <span className="Price">{this.props.item.price + "руб"}</span>
         <span>
-          <input className="button" type="button" value="Format" onClick={this.formatForm} disabled={this.props.isBtnDisabled}/>
+          <input className="button" type="button" value="Format" onClick={this.formatForm} disabled={this.props.isBtnDisabled} />
           <input className="button" type="button" value="Delete" onClick={this.deleteItemFn} disabled={this.props.isBtnDisabled} />
         </span>
       </div>
     );
+
     return (
       <div className="Item" data={this.props.item.code} style={{ backgroundColor: this.props.color }} onClick={this.changecolor}>
         {itemCode}

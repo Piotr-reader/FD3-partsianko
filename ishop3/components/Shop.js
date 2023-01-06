@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./Shop.css";
 import Item from "./Item";
 import FormAdd from "./FormAdd";
+import ItemDescription from "./ItemDescription";
 
 class Shop extends React.Component {
   static propTypes = {
@@ -16,15 +17,28 @@ class Shop extends React.Component {
   };
   state = {
     itemsList: this.props.startItem,
-    selectedItemId: NaN,
+    selectedItemId: null,
     isFormOpen: false,
-    isBtnDisabled: false
+    isBtnDisabled: false,
+    selectedItemFormat: null,
+    selectedBtnForm: null,
+  };
+  addItem = () => {
+    this.setState({ selectedBtnForm: "add" });
+    let newItem = {
+      shop: "",
+      item: "",
+      code: this.state.itemsList[this.state.itemsList.length - 1].code + 1,
+      price: "",
+      quantity: "",
+      img: "",
+    };
+    this.cbOpenFormFn(newItem);
   };
   cbSelectedItem = (code) => {
-    this.state.selectedItemId === code && (code = -1);
+    this.state.selectedItemId === code && (code = null);
     this.setState({ selectedItemId: code });
   };
-
   cbDeleteItemFn = (code) => {
     const { itemsList } = this.state;
     let newItem = [];
@@ -36,16 +50,25 @@ class Shop extends React.Component {
       this.setState({ itemsList: newItem });
     }
   };
-  cbOpenFormFn = () => {
-    this.setState({ isFormOpen: true,isBtnDisabled: true, selectedItemId: -1});
+  cbOpenFormFn = (item) => {
+    this.setState({ isFormOpen: true, isBtnDisabled: true, selectedItemId: null, selectedItemFormat: item });
   };
   cbCancelForm = () => {
-    this.setState({ isFormOpen: false,isBtnDisabled: false});
+    this.setState({ isFormOpen: false, isBtnDisabled: false });
+  };
+  cbSaveForm = (changeItem) => {
+    let newItem = this.state.itemsList;
+    if (this.state.selectedBtnForm) {
+      newItem.push(changeItem);
+    } else {
+      newItem.forEach((item, index) => {
+        item.code === changeItem.code && (newItem[index] = changeItem);
+      });
+    }
+    this.setState({ itemsList: newItem, selectedBtnForm: null });
   };
   render() {
     let color = "";
-    let form;
-    this.state.isFormOpen && (form = <FormAdd cbCancelForm={this.cbCancelForm} />)
     let shopName = this.state.itemsList.map((item) => {
       return (
         <div key={item.code} className="component">
@@ -64,12 +87,20 @@ class Shop extends React.Component {
       );
     });
 
-
     return (
       <Fragment>
         <div className="Shop">{shopName}</div>
-        <input className="button" type="button" value="Новый" onClick={this.cbOpenFormFn} disabled={this.state.isBtnDisabled}/>
-        <div className="Form">{form}</div>
+        <input className="button" type="button" value="Новый" onClick={this.addItem} disabled={this.state.isBtnDisabled} />
+        {this.state.isFormOpen && (
+          <FormAdd
+            cbCancelForm={this.cbCancelForm}
+            cbSaveForm={this.cbSaveForm}
+            selectedItemFormat={this.state.selectedItemFormat}
+            selectedBtnForm={this.state.selectedBtnForm}
+            itemsList={this.state.itemsList}
+          />
+        )}
+        {this.state.selectedItemId && <ItemDescription itemsList={this.state.itemsList} selectedItemId={this.state.selectedItemId} />}
       </Fragment>
     );
   }

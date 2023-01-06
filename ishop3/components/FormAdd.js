@@ -6,42 +6,105 @@ import "./FormAdd.css";
 class FormAdd extends React.Component {
   static propTypes = {
     cbCancelForm: PropTypes.func.isRequired,
+    cbSaveForm: PropTypes.func.isRequired,
+    selectedItemFormat: PropTypes.object.isRequired,
+    itemsList: PropTypes.array.isRequired,
+  };
+  state = {
+    textShop: this.props.selectedItemFormat.shop,
+    textItem: this.props.selectedItemFormat.item,
+    textQuantity: this.props.selectedItemFormat.quantity,
+    textPrice: this.props.selectedItemFormat.price,
+    selectImg: this.props.selectedItemFormat.img,
+    isDisabledBtnSave: true,
+  };
+  textShopRef = React.createRef();
+  textItemRef = React.createRef();
+  textQuantityRef = React.createRef();
+  textPriceRef = React.createRef();
+  selectImgRef = React.createRef();
+  flag = () => {
+    let flag = true;
+    this.state.textItem && this.state.textQuantity && this.state.textPrice && (flag = false);
+    this.setState({ isDisabledBtnSave: flag });
+  };
+  handleChange = () => {
+    this.setState(
+      {
+        textShop: this.textShopRef.current.value,
+        textItem: this.textItemRef.current.value,
+        textQuantity: this.textQuantityRef.current.value,
+        textPrice: this.textPriceRef.current.value,
+        selectImg: this.selectImgRef.current.value,
+      },
+      this.flag
+    );
   };
   cancelForm = () => {
     this.props.cbCancelForm();
-  }
+  };
+  formatForm = () => {
+    let changeItem = {
+      shop: this.state.textShop,
+      item: this.state.textItem,
+      code: this.props.selectedItemFormat.code,
+      price: this.state.textPrice,
+      quantity: this.state.textQuantity,
+      img: this.state.selectImg,
+    };
+    this.props.cbCancelForm();
+    this.props.cbSaveForm(changeItem);
+  };
   render() {
+    const options = this.props.itemsList.map((item) => {
+      return (
+        <option key={item.code} value={item.img}>
+          {item.item}
+        </option>
+      );
+    });
+
     let form = (
       <form>
         <label>
-          Товар:
-          <input type="text" />
+          Магазин:
+          <input ref={this.textShopRef} type="text" value={this.state.textShop} onChange={this.handleChange} />
         </label>
+        {!this.state.textShop && <span> Укажите название магазина</span>}
+        <br />
+        <label>
+          Товар:
+          <input ref={this.textItemRef} type="text" value={this.state.textItem} onChange={this.handleChange} />
+        </label>
+        {!this.state.textItem && <span> Укажите название товара</span>}
         <br />
         <label>
           Количество:
-          <input type="text" />
+          <input ref={this.textQuantityRef} type="text" value={this.state.textQuantity} onChange={this.handleChange} />
         </label>
+        {!this.state.textQuantity && <span> Укажите количество товара</span>}
         <br />
         <label>
           Картинка:
-          <select>
-            <option value="img1">img1</option>
-            <option value="img2">img2</option>
-            <option value="img3">img3</option>
+          <select ref={this.selectImgRef} value={this.state.selectImg} onChange={this.handleChange}>
+            {options}
           </select>
         </label>
         <br />
         <label>
           Цена:
-          <input type="text" />
+          <input ref={this.textPriceRef} type="text" value={this.state.textPrice} onChange={this.handleChange} />
         </label>
+        {!this.state.textPrice && <span> Укажите цену товара</span>}
       </form>
     );
-    return <div className="FormAdd">{form}
-            <input className="button" type="button" value="Сохранить"/>
-            <input className="button" type="button" value="Отмена" onClick={this.cancelForm}/>
-          </div>;
+    return (
+      <div className="FormAdd">
+        {form}
+        <input className="button" type="button" value="Сохранить" onClick={this.formatForm} disabled={this.state.isDisabledBtnSave} />
+        <input className="button" type="button" value="Отмена" onClick={this.cancelForm} />
+      </div>
+    );
   }
 }
 export default FormAdd;
