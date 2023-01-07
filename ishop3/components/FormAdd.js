@@ -42,7 +42,7 @@ class FormAdd extends React.Component {
   selectImgRef = React.createRef();
   flag = () => {
     let flag = true;
-    this.state.textItem && this.state.textQuantity && this.state.textPrice && (flag = false);
+    this.state.textShop && this.state.textItem && this.state.textQuantity && this.state.textPrice && (flag = false);
     this.setState({ isDisabledBtnSave: flag });
   };
 
