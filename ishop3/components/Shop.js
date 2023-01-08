@@ -17,7 +17,8 @@ class Shop extends React.Component {
   };
   state = {
     itemsList: this.props.startItem,
-    selectedItemId: null,
+    arrImg: [],
+    selectedItem: null,
     isFormOpen: false,
     isClickColor: false,
     isBtnDisabled: false,
@@ -37,12 +38,14 @@ class Shop extends React.Component {
     };
     this.cbOpenFormFn(newItem);
   };
-  cbSelectedItem = (code, opendescription) => {
-    if (this.state.selectedItemId === code) {
-      code = null;
-      opendescription = false;
+  cbSelectedItem = (selectedItem, opendescription) => {
+    if (this.state.selectedItem) {
+      if (this.state.selectedItem.code === selectedItem.code) {
+        selectedItem = null;
+        opendescription = false;
+      }
     }
-    this.setState({ selectedItemId: code, isOpenDescription: opendescription });
+    this.setState({ selectedItem: selectedItem, isOpenDescription: opendescription });
   };
   cbDeleteItemFn = (code) => {
     const { itemsList } = this.state;
@@ -56,7 +59,13 @@ class Shop extends React.Component {
     }
   };
   cbOpenFormFn = (item) => {
-    this.setState({ isFormOpen: true, selectedItemId: item.code, selectedItemFormat: item, isOpenDescription: false });
+    let arrImg = [];
+    let arrCode = [];
+    this.state.itemsList.forEach((item) => {
+      arrImg.push(item.img);
+      arrCode.push(item.code);
+    });
+    this.setState({ isFormOpen: true, selectedItem: item, isOpenDescription: false, arrImg: arrImg });
   };
   cbDisabledBtns = () => {
     this.setState({ isBtnDisabled: true });
@@ -65,37 +74,32 @@ class Shop extends React.Component {
     this.setState({ isClickColor: true });
   };
   cbCancelForm = () => {
-    this.setState({ isFormOpen: false, isBtnDisabled: false, isClickColor: false, selectedItemId: null });
+    this.setState({ isFormOpen: false, isBtnDisabled: false, isClickColor: false, selectedItem: null });
   };
   cbSaveForm = (changeItem) => {
     let newItem = this.state.itemsList;
-    if (this.state.selectedBtnForm) {
-      newItem.push(changeItem);
-    } else {
-      newItem.forEach((item, index) => {
-        item.code === changeItem.code && (newItem[index] = changeItem);
-      });
-    }
-    this.setState({ itemsList: newItem, selectedBtnForm: null, isClickColor: false, selectedItemId: null });
+    this.state.selectedBtnForm
+      ? newItem.push(changeItem)
+      : newItem.forEach((item, index) => {
+          item.code === changeItem.code && (newItem[index] = changeItem);
+        });
+    this.setState({ itemsList: newItem, selectedBtnForm: null, isClickColor: false, selectedItem: null });
   };
   render() {
-    let color = "";
     let shopName = this.state.itemsList.map((item) => {
       return (
         <div key={item.code} className="component">
           <span className="nameShop">{item.shop}</span>
-          <div className="test">
-            <Item
-              item={item}
-              cbSelectedItem={this.cbSelectedItem}
-              cbDeleteItemFn={this.cbDeleteItemFn}
-              cbOpenFormFn={this.cbOpenFormFn}
-              cbCancelForm={this.cbCancelForm}
-              color={this.state.selectedItemId === item.code ? (color = "red") : (color = "gray")}
-              isBtnDisabled={this.state.isBtnDisabled}
-              isClickColor={this.state.isClickColor}
-            />
-          </div>
+          <Item
+            item={item}
+            cbSelectedItem={this.cbSelectedItem}
+            cbDeleteItemFn={this.cbDeleteItemFn}
+            cbOpenFormFn={this.cbOpenFormFn}
+            cbCancelForm={this.cbCancelForm}
+            color={this.state.selectedItem && this.state.selectedItem.code === item.code ? "red" : "gray"}
+            isBtnDisabled={this.state.isBtnDisabled}
+            isClickColor={this.state.isClickColor}
+          />
         </div>
       );
     });
@@ -109,13 +113,12 @@ class Shop extends React.Component {
             cbCancelForm={this.cbCancelForm}
             cbSaveForm={this.cbSaveForm}
             cbDisabledBtns={this.cbDisabledBtns}
-            selectedItemFormat={this.state.selectedItemFormat}
-            selectedBtnForm={this.state.selectedBtnForm}
-            itemsList={this.state.itemsList}
+            selectedItem={this.state.selectedItem}
+            arrImg={this.state.arrImg}
             cbisClickColor={this.cbisClickColor}
           />
         )}
-        {this.state.isOpenDescription && <ItemDescription itemsList={this.state.itemsList} selectedItemId={this.state.selectedItemId} />}
+        {this.state.isOpenDescription && <ItemDescription selectedItem={this.state.selectedItem} />}
       </Fragment>
     );
   }

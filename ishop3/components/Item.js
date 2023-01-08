@@ -19,7 +19,7 @@ class Item extends React.Component {
     if (!this.props.isClickColor) {
       if (!this.props.isBtnDisabled) {
         this.props.cbCancelForm();
-        this.props.cbSelectedItem(this.props.item.code, true);
+        this.props.cbSelectedItem(this.props.item, true);
       }
     }
   };

@@ -9,27 +9,27 @@ class FormAdd extends React.Component {
     cbSaveForm: PropTypes.func.isRequired,
     cbDisabledBtns: PropTypes.func.isRequired,
     cbisClickColor: PropTypes.func.isRequired,
-    selectedItemFormat: PropTypes.object.isRequired,
-    itemsList: PropTypes.array.isRequired,
+    selectedItem: PropTypes.object.isRequired,
+    arrImg: PropTypes.array.isRequired,
   };
   state = {
-    code: this.props.selectedItemFormat.code,
-    textShop: this.props.selectedItemFormat.shop,
-    textItem: this.props.selectedItemFormat.item,
-    textQuantity: this.props.selectedItemFormat.quantity,
-    textPrice: this.props.selectedItemFormat.price,
-    selectImg: this.props.selectedItemFormat.img,
+    code: this.props.selectedItem.code,
+    textShop: this.props.selectedItem.shop,
+    textItem: this.props.selectedItem.item,
+    textQuantity: this.props.selectedItem.quantity,
+    textPrice: this.props.selectedItem.price,
+    selectImg: this.props.selectedItem.img,
     isDisabledBtnSave: true,
   };
   componentDidUpdate() {
-    if (this.props.selectedItemFormat.code !== this.state.code) {
+    if (this.props.selectedItem.code !== this.state.code) {
       this.setState({
-        code: this.props.selectedItemFormat.code,
-        textShop: this.props.selectedItemFormat.shop,
-        textItem: this.props.selectedItemFormat.item,
-        textQuantity: this.props.selectedItemFormat.quantity,
-        textPrice: this.props.selectedItemFormat.price,
-        selectImg: this.props.selectedItemFormat.img,
+        code: this.props.selectedItem.code,
+        textShop: this.props.selectedItem.shop,
+        textItem: this.props.selectedItem.item,
+        textQuantity: this.props.selectedItem.quantity,
+        textPrice: this.props.selectedItem.price,
+        selectImg: this.props.selectedItem.img,
       });
       return true;
     }
@@ -67,7 +67,7 @@ class FormAdd extends React.Component {
     let changeItem = {
       shop: this.state.textShop,
       item: this.state.textItem,
-      code: this.props.selectedItemFormat.code,
+      code: this.props.selectedItem.code,
       price: this.state.textPrice,
       quantity: this.state.textQuantity,
       img: this.state.selectImg,
@@ -76,10 +76,10 @@ class FormAdd extends React.Component {
     this.props.cbSaveForm(changeItem);
   };
   render() {
-    const options = this.props.itemsList.map((item) => {
+    const options = this.props.arrImg.map((item, index) => {
       return (
-        <option key={item.code} value={item.img}>
-          {item.item}
+        <option key={index} value={item}>
+          {item}
         </option>
       );
     });
