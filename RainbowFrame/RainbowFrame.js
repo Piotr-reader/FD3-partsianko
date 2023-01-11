@@ -12,11 +12,11 @@ class RainbowFrame extends React.Component {
 
   render() {
     let component = {};
-    let nestedComponent = {};
+    let nestedComponent = this.props.children;
     this.props.colors.forEach((color, index) => {
       component = (
         <div className="border" key={index} style={{ borderColor: color }}>
-          {index === 0 ? this.props.children : nestedComponent}
+          {nestedComponent}
         </div>
       );
       nestedComponent = component;
