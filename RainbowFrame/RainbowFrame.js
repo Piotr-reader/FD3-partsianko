@@ -15,7 +15,7 @@ class RainbowFrame extends React.Component {
 
   componentDidMount() {
     let arr = [];
-    this.props.colors.reverse().forEach((color, index) => {
+    this.props.colors.forEach((color, index) => {
       arr.push(
         <div className="border" key={index} style={{ borderColor: color }}>
           {arr.pop()}
