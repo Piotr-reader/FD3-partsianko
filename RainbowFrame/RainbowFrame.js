@@ -9,25 +9,19 @@ class RainbowFrame extends React.Component {
   static propTypes = {
     colors: PropTypes.array.isRequired,
   };
-  state = {
-    component: "",
-  };
-
-  componentDidMount() {
-    let arr = [];
-    this.props.colors.forEach((color, index) => {
-      arr.push(
-        <div className="border" key={index} style={{ borderColor: color }}>
-          {arr.pop()}
-          {index === 0 && this.props.children}
-        </div>
-      );
-    });
-    this.setState({ component: arr });
-  }
 
   render() {
-    return <div className="RainbowFrame">{this.state.component}</div>;
+    let component = {};
+    let nestedComponent = {};
+    this.props.colors.forEach((color, index) => {
+      component = (
+        <div className="border" key={index} style={{ borderColor: color }}>
+          {index === 0 ? this.props.children : nestedComponent}
+        </div>
+      );
+      nestedComponent = component;
+    });
+    return <div className="RainbowFrame">{component}</div>;
   }
 }
 export default RainbowFrame;
