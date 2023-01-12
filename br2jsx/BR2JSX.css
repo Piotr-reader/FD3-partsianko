@@ -1,0 +1,10 @@
+#container {
+  display: flex;
+  justify-content: center;
+}
+.BR2JSX {
+  width: fit-content;
+  background: rgb(61, 95, 76);
+  padding: 10px;
+  text-align: center;
+}

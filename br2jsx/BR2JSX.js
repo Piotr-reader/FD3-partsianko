@@ -13,8 +13,13 @@ class BR2JSX extends React.Component {
       .replace(/<br>/g, " ")
       .split(" ");
 
-    console.log(changeString);
-    return <div className="BR2JSX">{changeString}</div>;
+    let arr = [];
+    changeString.forEach((item, index) => {
+      arr.push(item);
+      arr.push(<br key={index} />);
+    });
+    arr.pop();
+    return <div className="BR2JSX">{arr}</div>;
   }
 }
 export default BR2JSX;
