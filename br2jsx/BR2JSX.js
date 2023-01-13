@@ -8,13 +8,8 @@ class BR2JSX extends React.Component {
     text: PropTypes.string.isRequired,
   };
   render() {
-    const changeString = this.props.text
-      .replace(/<br.?\/>/g, " ")
-      .replace(/<br>/g, " ")
-      .split(" ");
-
     let arr = [];
-    changeString.forEach((item, index) => {
+    this.props.text.split(/<br\s?\/?>/g).forEach((item, index) => {
       arr.push(item);
       arr.push(<br key={index} />);
     });
