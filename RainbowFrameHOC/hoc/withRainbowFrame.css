@@ -1,7 +1,3 @@
-.withRainbowFrame {
-  display: flex;
-  justify-content: center;
-}
 .withRainbowFrame .border {
   width: fit-content;
   border: 10px solid;

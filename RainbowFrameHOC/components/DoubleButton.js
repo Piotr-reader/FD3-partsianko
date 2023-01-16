@@ -11,22 +11,18 @@ class DoubleButton extends React.Component {
     cbPressed: PropTypes.func.isRequired,
   };
 
-  numPressed = (EO) => {
-    let num = "";
-    if (EO.target.value === this.props.caption1) {
-      num = 1;
-    }
-    if (EO.target.value === this.props.caption2) {
-      num = 2;
-    }
-    this.props.cbPressed(num);
+  pressed1 = () => {
+    this.props.cbPressed(1);
+  };
+  pressed2 = () => {
+    this.props.cbPressed(2);
   };
   render() {
     return (
       <div className="DoubleButton">
-        <input className="input" type="button" value={this.props.caption1} onClick={this.numPressed} />
+        <input className="input" type="button" value={this.props.caption1} onClick={this.pressed1} />
         {this.props.children}
-        <input className="input" type="button" value={this.props.caption2} onClick={this.numPressed} />
+        <input className="input" type="button" value={this.props.caption2} onClick={this.pressed2} />
       </div>
     );
   }

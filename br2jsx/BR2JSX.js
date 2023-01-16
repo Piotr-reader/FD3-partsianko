@@ -10,10 +10,12 @@ class BR2JSX extends React.Component {
   render() {
     let arr = [];
     this.props.text.split(/<br\s?\/?>/g).forEach((item, index) => {
+      if (index) {
+        arr.push(<br key={index} />);
+      }
       arr.push(item);
-      arr.push(<br key={index} />);
     });
-    arr.pop();
+
     return <div className="BR2JSX">{arr}</div>;
   }
 }
