@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./withRainbowFrame.css";
 let withRainbowFrame = (colors) => (Component) => (props) => {
   let comp = <Component {...props} />;
 
@@ -10,7 +10,7 @@ let withRainbowFrame = (colors) => (Component) => (props) => {
       </div>
     );
   }
-  return <div className="DoubleButton">{comp}</div>;
+  return <div className="withRainbowFrame">{comp}</div>;
 };
 
 export { withRainbowFrame };
