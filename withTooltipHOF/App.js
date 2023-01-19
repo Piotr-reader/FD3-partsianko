@@ -6,12 +6,8 @@ import DoubleButton from "./components/DoubleButton";
 import { withTultipHOF } from "./hoc/withTultipHOF";
 import "./App.css";
 
-const delay = 1;
-const tultip = (
-  <span className="tooltiptext" style={{ transitionDelay: "1s" }}>
-    Я Тултип
-  </span>
-);
+const delay = 1000;
+const tultip = <span className="tooltiptext">Я Тултип</span>;
 const DoubleButtonwithTultip = withTultipHOF(tultip, delay)(DoubleButton);
 
 ReactDOM.render(

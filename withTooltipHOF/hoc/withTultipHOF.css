@@ -1,6 +1,6 @@
 .withTultipHOF {
   width: fit-content;
-  border: 10px solid;
+  border: 10px solid red;
   padding: 15px;
   text-align: center;
   box-sizing: border-box;
@@ -9,7 +9,6 @@
 }
 
 .withTultipHOF .tooltiptext {
-  visibility: hidden;
   width: 120px;
   background-color: gray;
   text-align: center;
@@ -18,9 +17,5 @@
   position: absolute;
   z-index: 1;
   top: -5px;
-  left: 105%;
-}
-
-.withTultipHOF:hover .tooltiptext {
-  visibility: visible;
+  left: 95%;
 }

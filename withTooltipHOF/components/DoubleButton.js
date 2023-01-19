@@ -17,20 +17,6 @@ class DoubleButton extends React.Component {
   pressed2 = () => {
     this.props.cbPressed(2);
   };
-
-  componentDidMount() {
-    // console.log("mount");
-  }
-  componentDidUpdate() {
-    console.log("didupdate");
-  }
-  shouldComponentUpdate(oldProp, newProp) {
-    console.log("shouldupdate");
-    // if (oldProp !== newProp) {
-    //   return true;
-    // }
-    return false;
-  }
   render() {
     return (
       <div className="DoubleButton">
