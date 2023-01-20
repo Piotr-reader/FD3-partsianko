@@ -12,6 +12,7 @@
   width: 120px;
   background-color: gray;
   text-align: center;
+  cursor: pointer;
   padding: 5px 0;
   border-radius: 6px;
   position: absolute;

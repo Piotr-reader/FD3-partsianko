@@ -5,17 +5,13 @@ const withTultipHOF = (tultip, delay) => (Component) => {
     state = {
       isOpenTultip: false,
     };
-    // componentDidMount() {
-    //   console.log("mount");
-    // }
-    // componentDidUpdate() {
-    //   console.log("update");
-    // }
     mouseOver = (EO) => {
       EO.stopPropagation();
-      setTimeout(() => {
-        this.setState({ isOpenTultip: true });
-      }, delay);
+      if (!this.state.isOpenTultip) {
+        setTimeout(() => {
+          this.setState({ isOpenTultip: true });
+        }, delay);
+      }
     };
     mouseOut = (EO) => {
       EO.stopPropagation();
@@ -27,7 +23,7 @@ const withTultipHOF = (tultip, delay) => (Component) => {
     };
     render() {
       return (
-        <div className="withTultipHOF border" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+        <div className="withTultipHOF border" onMouseEnter={this.mouseOver} onMouseLeave={this.mouseOut}>
           <Component {...this.props} />
           {this.state.isOpenTultip && <div onClick={this.closeTultip}>{tultip}</div>}
         </div>
