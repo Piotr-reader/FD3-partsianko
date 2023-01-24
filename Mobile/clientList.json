@@ -1,0 +1,6 @@
+[
+  { "code": 1, "surname": "Иванов", "name": "Иван", "otch": "Иванович", "balance": 200 },
+  { "code": 2, "surname": "Сидоров", "name": "Сидор", "otch": "Сидорович", "balance": 250 },
+  { "code": 3, "surname": "Петров", "name": "Петр", "otch": "Петрович", "balance": 180 },
+  { "code": 4, "surname": "Григорьев", "name": "Григорий", "otch": "Григорьевич", "balance": -220 }
+]
