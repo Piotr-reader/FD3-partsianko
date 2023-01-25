@@ -1,3 +1,4 @@
+"use strict";
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
@@ -20,39 +21,48 @@ class Mobile extends React.Component {
   };
   state = {
     clientList: [...this.props.clientList],
+    renderClientList: [],
     selectedClientCode: null,
+    isNewClientClicked: false,
   };
   allClients = () => {
     if (this.state.clientList !== this.props.clientList) {
-      this.setState({ clientList: this.props.clientList });
+      this.setState({ renderClientList: this.state.clientList });
     }
   };
   activeClients = () => {
     let activeClientsList = [];
-    this.props.clientList.forEach((client) => {
+    this.state.clientList.forEach((client) => {
       if (client.balance > 0) {
         activeClientsList.push(client);
       }
     });
-    this.setState({ clientList: activeClientsList });
+    this.setState({ renderClientList: activeClientsList });
   };
   blockedClients = () => {
     let activeClientsList = [];
-    this.props.clientList.forEach((client) => {
+    this.state.clientList.forEach((client) => {
       if (client.balance <= 0) {
         activeClientsList.push(client);
       }
     });
-    this.setState({ clientList: activeClientsList });
+    this.setState({ renderClientList: activeClientsList });
   };
   addNewClient = () => {
-    let newCode = this.state.clientList[this.state.clientList.length-1].code+1
+    let newCode = this.state.clientList[this.state.clientList.length - 1].code + 1;
     const newClient = {
-      "code": newCode, "surname": "", "name": "", "otch": "", "balance": 0
-    }
-    let newList = [...this.state.clientList,newClient]
-    this.setState({ clientList: newList, selectedClientCode: newCode });
-  }
+      code: newCode,
+      surname: "",
+      name: "",
+      otch: "",
+      balance: 0,
+    };
+    let newList = [...this.state.clientList, newClient];
+    this.setState({ clientList: newList, selectedClientCode: newCode, isNewClientClicked: true }, this.UNSAFE_componentWillMount);
+  };
+  UNSAFE_componentWillMount = () => {
+    this.setState({ renderClientList: this.state.clientList });
+  };
   componentDidMount = () => {
     deleteUserCodeEvents.addListener("EDeleteClicked", this.clientCodeDeleteSelected);
     formatUserCodeEvents.addListener("EFormatClicked", this.clientCodeFormatSelected);
@@ -70,10 +80,16 @@ class Mobile extends React.Component {
         newClientsArr.push(client);
       }
     }
-    this.setState({ clientList: newClientsArr });
+    this.setState({ clientList: newClientsArr }, this.UNSAFE_componentWillMount);
   };
   clientCodeFormatSelected = (code) => {
-    this.setState({ selectedClientCode: code });
+    if (this.state.isNewClientClicked) {
+      let newList = [...this.state.clientList];
+      newList.pop();
+      this.setState({ clientList: newList, selectedClientCode: code, isNewClientClicked: false }, this.UNSAFE_componentWillMount);
+    } else {
+      this.setState({ selectedClientCode: code });
+    }
   };
   saveFormatClientSelected = (newClient) => {
     let newClientsArr = [];
@@ -88,7 +104,7 @@ class Mobile extends React.Component {
   };
   render() {
     console.log("render Mobile");
-    let clientMobile = this.state.clientList.map((client) => {
+    let clientMobile = this.state.renderClientList.map((client) => {
       if (client.code === this.state.selectedClientCode) {
         return <FormatClient key={client.code} client={client} selectedClientCode={this.state.selectedClientCode} />;
       } else {

@@ -30,7 +30,7 @@ class ClientMobile extends React.Component {
           <td>{this.props.client.surname}</td>
           <td>{this.props.client.name}</td>
           <td>{this.props.client.otch}</td>
-          <td>{this.props.client.balance}</td>
+          <td>{+this.props.client.balance}</td>
           <td style={{ backgroundColor: this.props.client.balance > 0 ? "green" : "red" }}>{this.props.client.balance > 0 ? "active" : "blocked"}</td>
           <td>{<input className="button" type="button" value="Редактировать" onClick={this.formatClicked} />}</td>
           <td>{<input className="button" type="button" value="Удалить" onClick={this.deleteClient} />}</td>
