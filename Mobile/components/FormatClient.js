@@ -53,7 +53,7 @@ class FormatClient extends React.Component {
           <td>{<input ref={this.nameRef} className="inputText" type="text" value={this.state.name} onChange={this.handleChange} />}</td>
           <td>{<input ref={this.otchRef} className="inputText" type="text" value={this.state.otch} onChange={this.handleChange} />}</td>
           <td>{<input ref={this.balanceRef} className="inputText" type="text" value={this.state.balance} onChange={this.handleChange} />}</td>
-          <td style={{ backgroundColor: this.state.balance >= 0 ? "green" : "red" }}>{this.state.balance >= 0 ? "active" : "blocked"}</td>
+          <td style={{ backgroundColor: this.state.balance > 0 ? "green" : "red" }}>{this.state.balance > 0 ? "active" : "blocked"}</td>
           <td>{<input className="button" type="button" value="Сохранить" onClick={this.saveFormat} />}</td>
           <td>{<input className="button" type="button" value="Отмена" onClick={this.cancelFormat} />}</td>
         </tr>

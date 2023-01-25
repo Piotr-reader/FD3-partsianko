@@ -30,7 +30,7 @@ class Mobile extends React.Component {
   activeClients = () => {
     let activeClientsList = [];
     this.props.clientList.forEach((client) => {
-      if (client.balance >= 0) {
+      if (client.balance > 0) {
         activeClientsList.push(client);
       }
     });
@@ -39,13 +39,20 @@ class Mobile extends React.Component {
   blockedClients = () => {
     let activeClientsList = [];
     this.props.clientList.forEach((client) => {
-      if (client.balance < 0) {
+      if (client.balance <= 0) {
         activeClientsList.push(client);
       }
     });
     this.setState({ clientList: activeClientsList });
   };
-
+  addNewClient = () => {
+    let newCode = this.state.clientList[this.state.clientList.length-1].code+1
+    const newClient = {
+      "code": newCode, "surname": "", "name": "", "otch": "", "balance": 0
+    }
+    let newList = [...this.state.clientList,newClient]
+    this.setState({ clientList: newList, selectedClientCode: newCode });
+  }
   componentDidMount = () => {
     deleteUserCodeEvents.addListener("EDeleteClicked", this.clientCodeDeleteSelected);
     formatUserCodeEvents.addListener("EFormatClicked", this.clientCodeFormatSelected);
@@ -112,7 +119,7 @@ class Mobile extends React.Component {
           </table>
         </div>
         <div className="addNewClient">
-          <input ref={this.addNewClient} className="button" type="button" value="Добавить клиента" />
+          <input className="button" type="button" value="Добавить клиента" onClick={this.addNewClient} />
         </div>
       </div>
     );
