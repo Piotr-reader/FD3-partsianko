@@ -1,10 +1,11 @@
+"use strict";
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { formatUserCodeEvents, saveFormatClientEvents } from "./events";
 import "./Client.css";
 
-class FormatClient extends React.Component {
+class FormatClient extends React.PureComponent {
   static propTypes = {
     client: PropTypes.shape({
       code: PropTypes.number.isRequired,
@@ -13,7 +14,6 @@ class FormatClient extends React.Component {
       otch: PropTypes.string.isRequired,
       balance: PropTypes.number.isRequired,
     }),
-    selectedClientCode: PropTypes.number,
   };
   state = {
     surname: this.props.client.surname,
@@ -25,6 +25,7 @@ class FormatClient extends React.Component {
   nameRef = React.createRef();
   otchRef = React.createRef();
   balanceRef = React.createRef();
+
   handleChange = () => {
     this.setState({
       surname: this.surnameRef.current.value,
@@ -44,6 +45,7 @@ class FormatClient extends React.Component {
   cancelFormat = () => {
     formatUserCodeEvents.emit("EFormatClicked", null);
   };
+
   render() {
     console.log("render FormatClient");
     return (
