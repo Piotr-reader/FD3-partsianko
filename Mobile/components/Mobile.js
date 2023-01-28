@@ -24,9 +24,10 @@ class Mobile extends React.PureComponent {
     renderClientList: this.props.clientList,
     selectedClientCode: null,
     isNewClientClicked: false,
+    isHeaderBtns: null,
   };
   allClients = () => {
-    this.setState({ renderClientList: this.state.clientList });
+    this.setState({ renderClientList: this.state.clientList, isHeaderBtns:'all' });
   };
   activeClients = () => {
     let activeClientsList = [];
@@ -35,7 +36,7 @@ class Mobile extends React.PureComponent {
         activeClientsList.push(client);
       }
     });
-    this.setState({ renderClientList: activeClientsList });
+    this.setState({ renderClientList: activeClientsList, isHeaderBtns:'active'});
   };
   blockedClients = () => {
     let activeClientsList = [];
@@ -44,7 +45,7 @@ class Mobile extends React.PureComponent {
         activeClientsList.push(client);
       }
     });
-    this.setState({ renderClientList: activeClientsList });
+    this.setState({ renderClientList: activeClientsList,isHeaderBtns:'blocked' });
   };
   addNewClient = () => {
     let newCode = this.state.clientList[this.state.clientList.length - 1].code + 1;
@@ -55,10 +56,21 @@ class Mobile extends React.PureComponent {
       otch: "",
       balance: 0,
     };
-    let newList = [...this.state.clientList, newClient];
-    this.setState({ clientList: newList, selectedClientCode: newCode, isNewClientClicked: true, renderClientList: newList });
-  };
 
+    let newList = [...this.state.clientList, newClient];
+    this.setState({ clientList: newList, selectedClientCode: newCode, isNewClientClicked: true, renderClientList: newList }, this.BtnsName);
+  };
+  BtnsName = () => {
+    if(this.state.isHeaderBtns==='all') {
+      this.allClients()
+    }
+    if(this.state.isHeaderBtns==='active') {
+      this.activeClients()
+    }
+    if(this.state.isHeaderBtns==='blocked') {
+      this.blockedClients()
+    }
+  }
   componentDidMount = () => {
     deleteUserCodeEvents.addListener("EDeleteClicked", this.clientCodeDeleteSelected);
     formatUserCodeEvents.addListener("EFormatClicked", this.clientCodeFormatSelected);
@@ -77,7 +89,7 @@ class Mobile extends React.PureComponent {
         newClientsArr.push(client);
       }
     }
-    this.setState({ clientList: newClientsArr, renderClientList: newClientsArr });
+    this.setState({ clientList: newClientsArr, renderClientList: newClientsArr }, this.BtnsName);
   };
   clientCodeFormatSelected = (code) => {
     if (this.state.isNewClientClicked) {
@@ -95,7 +107,7 @@ class Mobile extends React.PureComponent {
         newClientsArr[i] = newClient;
       }
     });
-    this.setState({ clientList: newClientsArr, selectedClientCode: null, renderClientList: newClientsArr });
+    this.setState({ clientList: newClientsArr, selectedClientCode: null, renderClientList: newClientsArr }, this.BtnsName);
   };
   render() {
     console.log("render Mobile");

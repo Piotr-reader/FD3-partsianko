@@ -12,34 +12,21 @@ class FormatClient extends React.PureComponent {
       surname: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       otch: PropTypes.string.isRequired,
-      balance: PropTypes.number.isRequired,
+      balance: PropTypes.number,
     }),
   };
-  state = {
-    surname: this.props.client.surname,
-    name: this.props.client.name,
-    otch: this.props.client.otch,
-    balance: this.props.client.balance,
-  };
+
   surnameRef = React.createRef();
   nameRef = React.createRef();
   otchRef = React.createRef();
   balanceRef = React.createRef();
 
-  handleChange = () => {
-    this.setState({
-      surname: this.surnameRef.current.value,
-      name: this.nameRef.current.value,
-      otch: this.otchRef.current.value,
-      balance: +this.balanceRef.current.value,
-    });
-  };
   saveFormat = () => {
     let newClient = { ...this.props.client };
-    newClient.surname = this.state.surname;
-    newClient.name = this.state.name;
-    newClient.otch = this.state.otch;
-    newClient.balance = this.state.balance;
+    newClient.surname = this.surnameRef.current.value,
+    newClient.name = this.nameRef.current.value,
+    newClient.otch = this.otchRef.current.value,
+    newClient.balance = +this.balanceRef.current.value,
     saveFormatClientEvents.emit("ESaveClicked", newClient);
   };
   cancelFormat = () => {
@@ -49,17 +36,17 @@ class FormatClient extends React.PureComponent {
   render() {
     console.log("render FormatClient");
     return (
-      <Fragment>
+
         <tr>
-          <td>{<input ref={this.surnameRef} className="inputText" type="text" value={this.state.surname} onChange={this.handleChange} />}</td>
-          <td>{<input ref={this.nameRef} className="inputText" type="text" value={this.state.name} onChange={this.handleChange} />}</td>
-          <td>{<input ref={this.otchRef} className="inputText" type="text" value={this.state.otch} onChange={this.handleChange} />}</td>
-          <td>{<input ref={this.balanceRef} className="inputText" type="number" value={+this.state.balance} onChange={this.handleChange} />}</td>
-          <td style={{ backgroundColor: this.state.balance > 0 ? "green" : "red" }}>{this.state.balance > 0 ? "active" : "blocked"}</td>
+          <td>{<input ref={this.surnameRef} className="inputText" type="text" defaultValue={this.props.client.surname}/>}</td>
+          <td>{<input ref={this.nameRef} className="inputText" type="text" defaultValue={this.props.client.name}/>}</td>
+          <td>{<input ref={this.otchRef} className="inputText" type="text" defaultValue={this.props.client.otch}/>}</td>
+          <td>{<input ref={this.balanceRef} className="inputText" type="number" defaultValue={+this.props.client.balance}/>}</td>
+          <td ></td>
           <td>{<input className="button" type="button" value="Сохранить" onClick={this.saveFormat} />}</td>
           <td>{<input className="button" type="button" value="Отмена" onClick={this.cancelFormat} />}</td>
         </tr>
-      </Fragment>
+
     );
   }
 }
