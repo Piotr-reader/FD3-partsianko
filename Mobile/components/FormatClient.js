@@ -23,11 +23,11 @@ class FormatClient extends React.PureComponent {
 
   saveFormat = () => {
     let newClient = { ...this.props.client };
-    newClient.surname = this.surnameRef.current.value,
-    newClient.name = this.nameRef.current.value,
-    newClient.otch = this.otchRef.current.value,
-    newClient.balance = +this.balanceRef.current.value,
-    saveFormatClientEvents.emit("ESaveClicked", newClient);
+    (newClient.surname = this.surnameRef.current.value),
+      (newClient.name = this.nameRef.current.value),
+      (newClient.otch = this.otchRef.current.value),
+      (newClient.balance = +this.balanceRef.current.value),
+      saveFormatClientEvents.emit("ESaveClicked", newClient);
   };
   cancelFormat = () => {
     formatUserCodeEvents.emit("EFormatClicked", null);
@@ -36,17 +36,15 @@ class FormatClient extends React.PureComponent {
   render() {
     console.log("render FormatClient");
     return (
-
-        <tr>
-          <td>{<input ref={this.surnameRef} className="inputText" type="text" defaultValue={this.props.client.surname}/>}</td>
-          <td>{<input ref={this.nameRef} className="inputText" type="text" defaultValue={this.props.client.name}/>}</td>
-          <td>{<input ref={this.otchRef} className="inputText" type="text" defaultValue={this.props.client.otch}/>}</td>
-          <td>{<input ref={this.balanceRef} className="inputText" type="number" defaultValue={+this.props.client.balance}/>}</td>
-          <td ></td>
-          <td>{<input className="button" type="button" value="Сохранить" onClick={this.saveFormat} />}</td>
-          <td>{<input className="button" type="button" value="Отмена" onClick={this.cancelFormat} />}</td>
-        </tr>
-
+      <tr>
+        <td>{<input ref={this.surnameRef} className="inputText" type="text" defaultValue={this.props.client.surname} />}</td>
+        <td>{<input ref={this.nameRef} className="inputText" type="text" defaultValue={this.props.client.name} />}</td>
+        <td>{<input ref={this.otchRef} className="inputText" type="text" defaultValue={this.props.client.otch} />}</td>
+        <td>{<input ref={this.balanceRef} className="inputText" type="number" defaultValue={+this.props.client.balance} />}</td>
+        <td style={{ backgroundColor: this.props.client.balance > 0 ? "green" : "red" }}>{this.props.client.balance > 0 ? "active" : "blocked"}</td>
+        <td>{<input className="button" type="button" value="Сохранить" onClick={this.saveFormat} />}</td>
+        <td>{<input className="button" type="button" value="Отмена" onClick={this.cancelFormat} />}</td>
+      </tr>
     );
   }
 }
