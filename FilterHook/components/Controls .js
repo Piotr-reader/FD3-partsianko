@@ -8,7 +8,7 @@ const Controls = (props) => {
       className={props.controlOptions.class}
       type={props.controlOptions.type}
       value={props.controlOptions.value}
-      checked={props.controlOptions.isSort}
+      checked={props.controlOptions.checked}
       defaultValue={props.controlOptions.defaultValue}
       onClick={props.controlOptions.onClick}
       onChange={props.controlOptions.onChange}
