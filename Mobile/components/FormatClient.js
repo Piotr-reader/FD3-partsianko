@@ -2,7 +2,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import { formatUserCodeEvents, saveFormatClientEvents } from "./events";
+import { clientEvents } from "./events";
 import "./Client.css";
 
 class FormatClient extends React.PureComponent {
@@ -27,10 +27,10 @@ class FormatClient extends React.PureComponent {
       (newClient.name = this.nameRef.current.value),
       (newClient.otch = this.otchRef.current.value),
       (newClient.balance = +this.balanceRef.current.value),
-      saveFormatClientEvents.emit("ESaveClicked", newClient);
+      clientEvents.emit("ESaveClicked", newClient);
   };
   cancelFormat = () => {
-    formatUserCodeEvents.emit("EFormatClicked", null);
+    clientEvents.emit("EFormatClicked", null);
   };
 
   render() {

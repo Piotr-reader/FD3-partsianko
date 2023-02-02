@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import "./Mobile.css";
 import ClientMobile from "./Client";
 import FormatClient from "./FormatClient";
-import { deleteUserCodeEvents, formatUserCodeEvents, saveFormatClientEvents } from "./events";
+import { clientEvents } from "./events";
 
 class Mobile extends React.PureComponent {
   static propTypes = {
@@ -27,7 +27,7 @@ class Mobile extends React.PureComponent {
     isHeaderBtns: null,
   };
   allClients = () => {
-    this.setState({ renderClientList: this.state.clientList, isHeaderBtns:'all' });
+    this.setState({ renderClientList: this.state.clientList, isHeaderBtns: "all" });
   };
   activeClients = () => {
     let activeClientsList = [];
@@ -36,7 +36,7 @@ class Mobile extends React.PureComponent {
         activeClientsList.push(client);
       }
     });
-    this.setState({ renderClientList: activeClientsList, isHeaderBtns:'active'});
+    this.setState({ renderClientList: activeClientsList, isHeaderBtns: "active" });
   };
   blockedClients = () => {
     let activeClientsList = [];
@@ -45,7 +45,7 @@ class Mobile extends React.PureComponent {
         activeClientsList.push(client);
       }
     });
-    this.setState({ renderClientList: activeClientsList,isHeaderBtns:'blocked' });
+    this.setState({ renderClientList: activeClientsList, isHeaderBtns: "blocked" });
   };
   addNewClient = () => {
     let newCode = this.state.clientList[this.state.clientList.length - 1].code + 1;
@@ -61,25 +61,25 @@ class Mobile extends React.PureComponent {
     this.setState({ clientList: newList, selectedClientCode: newCode, isNewClientClicked: true, renderClientList: newList }, this.BtnsName);
   };
   BtnsName = () => {
-    if(this.state.isHeaderBtns==='all') {
-      this.allClients()
+    if (this.state.isHeaderBtns === "all") {
+      this.allClients();
     }
-    if(this.state.isHeaderBtns==='active') {
-      this.activeClients()
+    if (this.state.isHeaderBtns === "active") {
+      this.activeClients();
     }
-    if(this.state.isHeaderBtns==='blocked') {
-      this.blockedClients()
+    if (this.state.isHeaderBtns === "blocked") {
+      this.blockedClients();
     }
-  }
+  };
   componentDidMount = () => {
-    deleteUserCodeEvents.addListener("EDeleteClicked", this.clientCodeDeleteSelected);
-    formatUserCodeEvents.addListener("EFormatClicked", this.clientCodeFormatSelected);
-    saveFormatClientEvents.addListener("ESaveClicked", this.saveFormatClientSelected);
+    clientEvents.addListener("EDeleteClicked", this.clientCodeDeleteSelected);
+    clientEvents.addListener("EFormatClicked", this.clientCodeFormatSelected);
+    clientEvents.addListener("ESaveClicked", this.saveFormatClientSelected);
   };
   componentWillUnmount = () => {
-    deleteUserCodeEvents.removeListener("EDeleteClicked", this.clientCodeDeleteSelected);
-    formatUserCodeEvents.removeListener("EFormatClicked", this.clientCodeFormatSelected);
-    saveFormatClientEvents.removeListener("ESaveClicked", this.saveFormatClientSelected);
+    clientEvents.removeListener("EDeleteClicked", this.clientCodeDeleteSelected);
+    clientEvents.removeListener("EFormatClicked", this.clientCodeFormatSelected);
+    clientEvents.removeListener("ESaveClicked", this.saveFormatClientSelected);
   };
 
   clientCodeDeleteSelected = (code) => {

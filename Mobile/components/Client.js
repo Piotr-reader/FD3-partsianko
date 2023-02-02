@@ -2,7 +2,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import { deleteUserCodeEvents, formatUserCodeEvents } from "./events";
+import { clientEvents } from "./events";
 import "./Client.css";
 
 class ClientMobile extends React.PureComponent {
@@ -17,10 +17,10 @@ class ClientMobile extends React.PureComponent {
   };
 
   formatClicked = () => {
-    formatUserCodeEvents.emit("EFormatClicked", this.props.client.code);
+    clientEvents.emit("EFormatClicked", this.props.client.code);
   };
   deleteClient = () => {
-    deleteUserCodeEvents.emit("EDeleteClicked", this.props.client.code);
+    clientEvents.emit("EDeleteClicked", this.props.client.code);
   };
 
   render() {
