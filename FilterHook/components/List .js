@@ -6,7 +6,7 @@ import "./List.css";
 const List = (props) => {
   return (
     <div className="List">
-      <textarea className="text" defaultValue={props.string.join("\n")} />
+      <textarea className="text" value={props.string.join("\n")} onChange={() => {}} />
     </div>
   );
 };
