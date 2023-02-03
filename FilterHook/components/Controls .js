@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import "./Controls.css";
 const Controls = (props) => {
+
   return (
     <input
       className={props.controlOptions.class}
@@ -12,6 +13,7 @@ const Controls = (props) => {
       defaultValue={props.controlOptions.defaultValue}
       onClick={props.controlOptions.onClick}
       onChange={props.controlOptions.onChange}
+      ref={props.controlOptions.ref}
     />
   );
 };

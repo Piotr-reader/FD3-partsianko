@@ -1,1 +1,12 @@
-
+.Filter {
+margin: 15px;
+}
+.Filter .btns {
+    display: flex;
+    margin-top: 15px;
+  }
+.Filter .checkbox {
+  width: 23px;
+  margin-top: 0;
+  margin-right: 5px;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import "./Filter.css";
@@ -7,8 +7,10 @@ import Controls from "./Controls ";
 
 const Filter = (props) => {
   const [text, setText] = useState(props.string.slice());
-  const [filter, setTextInput] = useState("");
+  const [filter, setFilter] = useState("");
   const [isSort, setIsSort] = useState(false);
+  const checkboxRef= useRef(isSort);
+  const filterRef= useRef(filter);
 
   useEffect(() => {
     let newStr = props.string.filter((word) => word.includes(filter));
@@ -19,12 +21,12 @@ const Filter = (props) => {
   }, [isSort, filter]);
 
   const resetFn = () => {
-    setTextInput("");
+    setFilter("");
     setIsSort(false);
   };
   let typeBtn = [
-    { class: "checkbox", type: "checkbox", checked: isSort, onChange: () => setIsSort((prev) => !prev) },
-    { class: "filter", type: "text", value: filter, onChange: (EO) => setTextInput(EO.target.value) },
+    { class: "checkbox", ref:checkboxRef, type: "checkbox", checked: isSort, onChange: () => setIsSort(checkboxRef.current.checked) },
+    { class: "filter",ref:filterRef, type: "text", value: filter, onChange: () => setFilter(filterRef.current.value) },
     { class: "button", type: "button", defaultValue: "Сброс", onClick: resetFn },
   ];
   let btnSettings = typeBtn.map((btn, index) => {
@@ -32,7 +34,9 @@ const Filter = (props) => {
   });
   return (
     <div className="Filter">
+      <div className="btns">
       {btnSettings}
+      </div>
       <List string={text} />
     </div>
   );
