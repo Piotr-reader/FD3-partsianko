@@ -115,7 +115,7 @@
 .correct-answer-board__text:last-of-type {
   margin: 0;
 }
-.hint-board {
+.board {
   box-shadow: 0 0 8px rgb(230, 230, 0);
   background-color: rgb(43, 43, 43);
   border-radius: 3px;
@@ -123,15 +123,15 @@
   box-sizing: border-box;
   display: none;
 }
-.hint-board__text {
+.board__text {
   font-size: 14px;
   line-height: 1.25;
   margin: 0 0 10px;
 }
-.hint-board__span-accent {
+.board__span-accent {
   font-weight: 700;
 }
-.hint-board__text:last-of-type {
+.board__text:last-of-type {
   margin: 0;
 }
 .puzzle__image {
