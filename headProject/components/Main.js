@@ -6,7 +6,7 @@ import { withAnswerQuestion } from "../hoc/withAnswerQuestion";
 import { withWrongQuestion } from "../hoc/withWrongQuestion";
 import { withShowQuestion } from "../hoc/withShowQuestion";
 import { useSelector } from "react-redux";
-
+import { Routes, Route } from "react-router-dom";
 let FramedAnswerQuestion = withAnswerQuestion(Question);
 let FramedWrongQuestion = withWrongQuestion(Question);
 let FramedShowQuestion = withShowQuestion(Question);
@@ -43,6 +43,7 @@ const Main = (props) => {
     return (
       <Fragment key={question.question}>
         <div style={{ borderBottom: "5px solid #e0a7e5" }}></div>
+
         <Question question={question} />
       </Fragment>
     );
@@ -51,6 +52,7 @@ const Main = (props) => {
     <main className="Main">
       <h1 className="header__title">КВЕСТ ПО&nbsp;ВЫСТАВКЕ ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ: ХУДОЖНИК ИЛИ МАШИНА?</h1>
       <section className="description">
+        <img className="description__image" src="./images/poster.jpg" alt="Тут должна быть афиша выставки." />
         <h2 className="description__title">Несколько рекомендаций по&nbsp;прохождению квеста!</h2>
         <ul className="description__text">
           <li className="description__text-item">

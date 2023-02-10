@@ -155,8 +155,9 @@
   margin: 0;
 }
 .puzzle__image {
-  width: 100%;
-  border-radius: 3px;
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
 }
 .puzzle__video-description {
   text-transform: uppercase;

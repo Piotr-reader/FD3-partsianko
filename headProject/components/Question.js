@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Main.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
+import { Route, Routes } from "react-router-dom";
 const Question = (props) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -37,14 +37,15 @@ const Question = (props) => {
       numberQuestion: props.question.question,
     });
   };
-
+  let img = props.question.srcImg && <img className="puzzle__image" src={props.question.srcImg} alt="Тут должно быть зашифрованное изображение." />;
   return (
-    <section className="puzzle" id={`#${props.question.question}`}>
+    <section className="puzzle" id={props.question.question}>
       <h2 className="puzzle__number">
         Вопрос <br />
         {props.question.question}
       </h2>
       <p className="puzzle__text" dangerouslySetInnerHTML={{ __html: props.question.text }} />
+      {img}
       <div className="form">
         <label className="form__label">Ваш ответ:</label>
         <input ref={inputRef} className="form__field" defaultValue={inoutValue} type="text" placeholder={props.question.placeholder} />

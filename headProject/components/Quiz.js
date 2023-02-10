@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import questionReducer from "../redux/questionReducer";
+import Popup from "./Popup";
 const store = createStore(questionReducer);
 
 const Quiz = (props) => {
@@ -23,6 +24,7 @@ const Quiz = (props) => {
         <Header lengthOfQuestion={dataQuestions.length} />
         <Main questions={dataQuestions} />
         <Footer />
+        <Popup />
       </BrowserRouter>
     </Provider>
   );

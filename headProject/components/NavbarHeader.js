@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 const NavbarHeader = (props) => {
   const answeredQuestion = useSelector((state) => state.answeredQuestion);
@@ -14,9 +14,9 @@ const NavbarHeader = (props) => {
       }
     });
     let element = (
-      <li key={i}>
+      <li key={i} onClick={props.cbBurgerOpen}>
         <span className="checked_answer" style={{ display: isVisible }} dangerouslySetInnerHTML={{ __html: "&#10004" }} />
-        <NavLink className="navbar_text" to={`#${i}`}>
+        <NavLink className="navbar_text" to={`/${i}`}>
           Вопрос {i}
         </NavLink>
       </li>
@@ -29,5 +29,6 @@ const NavbarHeader = (props) => {
 };
 NavbarHeader.propTypes = {
   lengthOfQuestion: PropTypes.number.isRequired,
+  cbBurgerOpen: PropTypes.func.isRequired,
 };
 export default NavbarHeader;

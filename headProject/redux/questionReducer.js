@@ -2,6 +2,7 @@ const initState = {
   answeredQuestion: [],
   wrongAnswer: [],
   showAnswer: [],
+  popupState: null,
 };
 
 function questionReducer(state = initState, action) {
@@ -35,7 +36,15 @@ function questionReducer(state = initState, action) {
       return newState;
     }
     case "refresh_answer": {
-      let newState = { ...state, answeredQuestion: [], wrongAnswer: [], showAnswer: [] };
+      let newState = { ...state, answeredQuestion: [], wrongAnswer: [], showAnswer: [], popupState: null };
+      return newState;
+    }
+    case "popup_props": {
+      let newState = { ...state, popupState: action.popup_description };
+      return newState;
+    }
+    case "cancel_popup": {
+      let newState = { ...state, popupState: null };
       return newState;
     }
     default:
