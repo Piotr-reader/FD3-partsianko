@@ -1,21 +1,31 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import questionReducer from "../redux/questionReducer";
+const store = createStore(questionReducer);
 
 const Quiz = (props) => {
+  const [dataQuestions, setdataQuestions] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3500/question")
+      .then((response) => response.json())
+      .then((json) => setdataQuestions(json));
+  }, []);
 
   return (
-    <Fragment>
-      <Header lengthOfQuestion={props.questions.length} />
-      <Main questions={props.questions}/>
-      <Footer />
-    </Fragment>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header lengthOfQuestion={dataQuestions.length} />
+        <Main questions={dataQuestions} />
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   );
 };
-Quiz.propTypes = {
-  questions: PropTypes.array.isRequired,
-};
+
 export default Quiz;

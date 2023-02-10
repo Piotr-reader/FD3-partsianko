@@ -5,11 +5,19 @@
   text-align: center;
 }
 .footer__link {
-  color: #fff;
+  color: #2a2c2f;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1;
   display: flex;
+}
+.footer__link {
+  text-decoration: none;
+  color: #2a2c2f;
+}
+.footer__link:hover {
+  text-decoration: none;
+  color: beige;
 }
 .footer__links-list {
   display: flex;

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = (props) => {
@@ -10,22 +10,22 @@ const Footer = (props) => {
       <nav>
         <ul className="footer__links-list">
           <li className="footer__links-list-item">
-            <a to="/" className="footer__link">
+            <NavLink to="/" className="footer__link">
               <img className="footer__social-icon" src="./images/instagram_color_white.svg" alt="Instagram" />
               Instagram
-            </a>
+            </NavLink>
           </li>
           <li className="footer__links-list-item">
-            <a to="#" className="footer__link">
+            <NavLink to="#" className="footer__link">
               <img className="footer__social-icon" src="./images/facebook_color_white.svg" alt="Facebook" />
               Facebook
-            </a>
+            </NavLink>
           </li>
           <li className="footer__links-list-item">
-            <a to="#" className="footer__link">
+            <NavLink to="#" className="footer__link">
               <img className="footer__social-icon" src="./images/vk_color_white.svg" alt="ВКонтакте" />
               ВКонтакте
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>

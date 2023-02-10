@@ -1,4 +1,7 @@
-.withAnswerQuestion .border {
-  border: 10px solid;
+.correct-answer-board__text {
+  border-radius: 8px;
   text-align: center;
-  }
+  font-size: 14px;
+  line-height: 1.25;
+  margin: 20px;
+}
