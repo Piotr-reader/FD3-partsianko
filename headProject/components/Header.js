@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Pagination from "./Pagination";
+import Main from "./Main";
 
 const Header = (props) => {
   const answeredQuestionLength = useSelector((state) => state.answeredQuestion);
@@ -81,11 +82,11 @@ const Header = (props) => {
           </div>
         </NavLink>
         <div className="menu_container">
-          <NavLink className="menu_text" to={"/"}>
+          <NavLink className="menu_text" to="/">
             Квест
           </NavLink>
           <div onClick={burgerOpen}>
-            <NavLink className="menu_text" to={"/List"}>
+            <NavLink className="menu_text" to="/List">
               Список вопросов
             </NavLink>
           </div>
@@ -96,9 +97,6 @@ const Header = (props) => {
         <input className="btn_pagination" type="button" defaultValue="all" onClick={setAllData} />
         <Pagination questions={props.questions} />
       </div>
-      <Routes>
-        <Route path="/List" element={<Navbar cbBurgerOpen={burgerOpen} questions={props.questions} />} />
-      </Routes>
     </header>
   );
 };

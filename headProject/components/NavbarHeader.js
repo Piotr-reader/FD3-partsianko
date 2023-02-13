@@ -8,12 +8,12 @@ const NavbarHeader = (props) => {
   for (let i = 0; i < props.questions.length; i++) {
     let isVisible = "none";
     answeredQuestion.forEach((question) => {
-      if (question.numberQuestion === i) {
+      if (question.numberQuestion === i + 1) {
         isVisible = "block";
       }
     });
     let element = (
-      <li key={i + 1} onClick={props.cbBurgerOpen}>
+      <li key={i + 1}>
         <span className="checked_answer" style={{ display: isVisible }} dangerouslySetInnerHTML={{ __html: "&#10004" }} />
         <div className="navbar_text">Вопрос {props.questions[i].question}</div>
       </li>
@@ -25,7 +25,6 @@ const NavbarHeader = (props) => {
   return navbarCollection;
 };
 NavbarHeader.propTypes = {
-  cbBurgerOpen: PropTypes.func.isRequired,
   questions: PropTypes.array.isRequired,
 };
 export default NavbarHeader;

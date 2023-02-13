@@ -10,7 +10,7 @@ const Navbar = (props) => {
     <nav className="navbar_container">
       <div className="navbar" style={{ left: isBurgerOpen }}>
         <ul className="navbar_width">
-          <NavbarHeader cbBurgerOpen={props.cbBurgerOpen} questions={props.questions} />
+          <NavbarHeader questions={props.questions} />
         </ul>
       </div>
     </nav>
@@ -18,7 +18,6 @@ const Navbar = (props) => {
 };
 
 Navbar.propTypes = {
-  cbBurgerOpen: PropTypes.func.isRequired,
   questions: PropTypes.array.isRequired,
 };
 

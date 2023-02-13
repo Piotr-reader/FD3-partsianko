@@ -1,11 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 const Pagination = (props) => {
-  const dataPagination = useSelector((state) => state.dataPagination);
   const dispatch = useDispatch();
-
   const setData = (i) => {
     dispatch({
       type: "pagination",
@@ -17,6 +15,7 @@ const Pagination = (props) => {
   props.questions.length % 2 !== 0 ? numberBtns++ : numberBtns;
 
   let btns = [];
+
   for (let i = 0; i < numberBtns; i++) {
     btns.push(
       <Fragment key={i}>

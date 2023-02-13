@@ -3,5 +3,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Quiz from "./components/Quiz";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render(React.createElement(Quiz), document.getElementById("container"));
+ReactDOM.render(
+  <BrowserRouter>
+    <Quiz />
+  </BrowserRouter>,
+  document.getElementById("container")
+);

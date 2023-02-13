@@ -1,17 +1,30 @@
 const initState = {
+  dataPagination: "",
   dataQuestions: [],
   answeredQuestion: [],
   wrongAnswer: [],
   showAnswer: [],
   popupState: null,
   isBurgerOPen: "100%",
-  dataPagination: "",
 };
 
 function questionReducer(state = initState, action) {
   switch (action.type) {
     case "dataQuestions": {
       let newState = { ...state, dataQuestions: action.dataQuestions };
+      return newState;
+    }
+    case "data_localStorage": {
+      let newState = {
+        ...state,
+        dataQuestions: action.stateLocalStorage.dataQuestions,
+        answeredQuestion: action.stateLocalStorage.answeredQuestion,
+        wrongAnswer: action.stateLocalStorage.wrongAnswer,
+        showAnswer: action.stateLocalStorage.showAnswer,
+        popupState: action.stateLocalStorage.popupState,
+        isBurgerOPen: action.stateLocalStorage.isBurgerOPen,
+        dataPagination: action.stateLocalStorage.dataPagination,
+      };
       return newState;
     }
     case "correct_answer": {

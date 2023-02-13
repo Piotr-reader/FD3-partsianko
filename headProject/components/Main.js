@@ -6,19 +6,35 @@ import { withAnswerQuestion } from "../hoc/withAnswerQuestion";
 import { withWrongQuestion } from "../hoc/withWrongQuestion";
 import { withShowQuestion } from "../hoc/withShowQuestion";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 let FramedAnswerQuestion = withAnswerQuestion(Question);
 let FramedWrongQuestion = withWrongQuestion(Question);
 let FramedShowQuestion = withShowQuestion(Question);
 
 const Main = (props) => {
+  const stateLocalStorage = useSelector((state) => state);
   const answeredQuestion = useSelector((state) => state.answeredQuestion);
   const wrongAnswer = useSelector((state) => state.wrongAnswer);
   const showAnswer = useSelector((state) => state.showAnswer);
   const dataPagination = useSelector((state) => state.dataPagination);
-  const [dataQuestions, setDataQuestions] = useState([]);
+  const dispatch = useDispatch();
+  const [oldStorage, setOldStorage] = useState(stateLocalStorage);
+  let getLocalstorageAnswers = localStorage.getItem("localData");
+  getLocalstorageAnswers = JSON.parse(getLocalstorageAnswers);
   useEffect(() => {
-    setDataQuestions(props.questions);
-  }, [props.questions]);
+    if (getLocalstorageAnswers) {
+      setOldStorage(getLocalstorageAnswers);
+      dispatch({
+        type: "data_localStorage",
+        stateLocalStorage: getLocalstorageAnswers,
+      });
+    }
+  }, []);
+  useEffect(() => {
+    setOldStorage(stateLocalStorage);
+    localStorage.setItem("localData", JSON.stringify(stateLocalStorage));
+  }, [dataPagination, answeredQuestion]);
+  // localStorage.clear();
   useEffect(() => {
     let url = "http://localhost:3500/question";
     if (dataPagination) {
@@ -26,9 +42,14 @@ const Main = (props) => {
     }
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setDataQuestions(json));
-  }, [dataPagination]);
-  let mainComponent = dataQuestions.map((question) => {
+      .then((json) => {
+        dispatch({
+          type: "dataQuestions",
+          dataQuestions: json,
+        });
+      });
+  }, [stateLocalStorage.dataPagination]);
+  let mainComponent = stateLocalStorage.dataQuestions.map((question) => {
     for (const key of answeredQuestion) {
       if (key.numberQuestion === question.question) {
         return (
@@ -82,7 +103,5 @@ const Main = (props) => {
     </main>
   );
 };
-Main.propTypes = {
-  questions: PropTypes.array.isRequired,
-};
+
 export default Main;
