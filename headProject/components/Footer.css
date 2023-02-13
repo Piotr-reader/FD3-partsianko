@@ -1,31 +1,30 @@
-.footer__heading {
-  margin: 0 0 15px;
-  font-size: 18px;
-  line-height: 1.25;
+.Footer {
+  border-top: 5px solid rgb(224, 167, 229);
   text-align: center;
 }
-.footer__link {
+.Footer .footer__heading {
+  margin: 15px 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+.Footer .footer__links-list {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0 8px;
+}
+.Footer .footer__link {
   color: #2a2c2f;
   text-decoration: none;
   font-size: 13px;
   line-height: 1;
   display: flex;
 }
-.footer__link {
-  text-decoration: none;
-  color: #2a2c2f;
-}
-.footer__link:hover {
+.Footer .footer__link:hover {
   text-decoration: none;
   color: beige;
 }
-.footer__links-list {
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-  padding: 0;
-}
-.footer__social-icon {
+.Footer .footer__social-icon {
   width: 16px;
   height: 16px;
   margin-right: 5px;

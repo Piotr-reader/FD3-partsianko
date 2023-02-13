@@ -6,7 +6,6 @@ import { withAnswerQuestion } from "../hoc/withAnswerQuestion";
 import { withWrongQuestion } from "../hoc/withWrongQuestion";
 import { withShowQuestion } from "../hoc/withShowQuestion";
 import { useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
 let FramedAnswerQuestion = withAnswerQuestion(Question);
 let FramedWrongQuestion = withWrongQuestion(Question);
 let FramedShowQuestion = withShowQuestion(Question);
@@ -15,8 +14,21 @@ const Main = (props) => {
   const answeredQuestion = useSelector((state) => state.answeredQuestion);
   const wrongAnswer = useSelector((state) => state.wrongAnswer);
   const showAnswer = useSelector((state) => state.showAnswer);
-
-  let mainComponent = props.questions.map((question) => {
+  const dataPagination = useSelector((state) => state.dataPagination);
+  const [dataQuestions, setDataQuestions] = useState([]);
+  useEffect(() => {
+    setDataQuestions(props.questions);
+  }, [props.questions]);
+  useEffect(() => {
+    let url = "http://localhost:3500/question";
+    if (dataPagination) {
+      url = `http://localhost:3500/question?_limit=2&_page=${dataPagination}`;
+    }
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setDataQuestions(json));
+  }, [dataPagination]);
+  let mainComponent = dataQuestions.map((question) => {
     for (const key of answeredQuestion) {
       if (key.numberQuestion === question.question) {
         return (
@@ -43,7 +55,6 @@ const Main = (props) => {
     return (
       <Fragment key={question.question}>
         <div style={{ borderBottom: "5px solid #e0a7e5" }}></div>
-
         <Question question={question} />
       </Fragment>
     );

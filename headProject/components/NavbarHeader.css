@@ -1,0 +1,59 @@
+.navbar {
+  flex-direction: column;
+  position: fixed;
+  left: 100%;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease-out;
+  text-align: center;
+}
+.navbar li:first-child {
+  margin-top: 80px;
+  padding-top: 20px;
+}
+.navbar li {
+  margin-bottom: 7px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar_width {
+  position: relative;
+  background-color: #fff;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  transition: 0.3s ease-in;
+}
+.navbar_text {
+  font-size: 32px;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  color: #2a2c2f;
+  text-decoration: none;
+  transition: 0.1s ease-in;
+}
+/* .navbar_text:hover {
+  text-decoration: none;
+  color: #93979d;
+  transition: 0.1s ease-in;
+} */
+.navbar_width li span {
+  color: #008000;
+}
+.checked_answer {
+  font-size: 32px;
+  display: none;
+  color: #008000;
+}
+
+@media (min-width: 767px) {
+  .navbar {
+    position: unset;
+  }
+  .navbar li:first-child {
+    margin-top: 0px;
+  }
+}

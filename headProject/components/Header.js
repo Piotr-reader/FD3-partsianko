@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { Routes, Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import NavbarHeader from "./NavbarHeader";
+import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Pagination from "./Pagination";
 
 const Header = (props) => {
   const answeredQuestionLength = useSelector((state) => state.answeredQuestion);
-  const [isOpen, setIsOpen] = useState("100%");
+  const isBurgerOPen = useSelector((state) => state.isBurgerOPen);
   const dispatch = useDispatch();
   const burgerOpen = () => {
-    if (isOpen !== "0") {
-      setIsOpen("0");
+    let isOpen;
+    if (isBurgerOPen !== "0") {
+      isOpen = "0";
     } else {
-      setIsOpen("100%");
+      isOpen = "100%";
     }
+    dispatch({
+      type: "isBurgerOPen",
+      isBurgerOPen: isOpen,
+    });
   };
   function refreshQuizAnswer() {
     const popupProps = {
@@ -40,6 +47,14 @@ const Header = (props) => {
       popup_description: popupProps,
     });
   };
+  const setAllData = () => {
+    dispatch({
+      type: "pagination",
+      dataPagination: "",
+    });
+  };
+  let root = "/";
+  isBurgerOPen === "0" ? (root = "/") : (root = "/List");
   return (
     <header className="Header">
       <div className="header__info">
@@ -50,7 +65,7 @@ const Header = (props) => {
         </div>
         <div className="score">
           <div>
-            Всего вопросов: <span className="total_questions">{props.lengthOfQuestion}</span>
+            Всего вопросов: <span className="total_questions">{props.questions.length}</span>
           </div>
           <div>
             Вы ответили на: <span className="correct_answers">{answeredQuestionLength.length}</span>
@@ -60,23 +75,36 @@ const Header = (props) => {
           <input className="form__button btn__popup_reset" type="button" value="Сбросить" onClick={refreshQuizAnswer} />
           <input className="form__button btn_gift" type="button" value="Приз" onClick={giftBtn} />
         </div>
-        <div className="header_burger" onClick={burgerOpen}>
-          <span></span>
+        <NavLink className="menu_text" to={root}>
+          <div className="header_burger" onClick={burgerOpen}>
+            <span></span>
+          </div>
+        </NavLink>
+        <div className="menu_container">
+          <NavLink className="menu_text" to={"/"}>
+            Квест
+          </NavLink>
+          <div onClick={burgerOpen}>
+            <NavLink className="menu_text" to={"/List"}>
+              Список вопросов
+            </NavLink>
+          </div>
         </div>
       </div>
-      <nav className="navbar_container">
-        <div className="navbar" style={{ left: isOpen }}>
-          <ul className="navbar_width">
-            <NavbarHeader lengthOfQuestion={props.lengthOfQuestion} cbBurgerOpen={burgerOpen} />
-          </ul>
-        </div>
-      </nav>
+      <div className="pagination">
+        Страница вопросов:
+        <input className="btn_pagination" type="button" defaultValue="all" onClick={setAllData} />
+        <Pagination questions={props.questions} />
+      </div>
+      <Routes>
+        <Route path="/List" element={<Navbar cbBurgerOpen={burgerOpen} questions={props.questions} />} />
+      </Routes>
     </header>
   );
 };
 
 Header.propTypes = {
-  lengthOfQuestion: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired,
 };
 
 export default Header;

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import "./Main.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Route, Routes } from "react-router-dom";
 const Question = (props) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -53,10 +52,6 @@ const Question = (props) => {
           <input className="form__button form__button_type_submit" type="button" value="Ответить" onClick={checkAnswer} />
           <input className="form__button form__button_type_hint" type="button" value="Узнать ответ" onClick={showAnswer} />
         </div>
-      </div>
-      <div className="board">
-        <span className="board__span-accent">Правильный ответ: </span>
-        {props.question.answer}.
       </div>
     </section>
   );

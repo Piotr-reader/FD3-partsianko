@@ -1,12 +1,19 @@
 const initState = {
+  dataQuestions: [],
   answeredQuestion: [],
   wrongAnswer: [],
   showAnswer: [],
   popupState: null,
+  isBurgerOPen: "100%",
+  dataPagination: "",
 };
 
 function questionReducer(state = initState, action) {
   switch (action.type) {
+    case "dataQuestions": {
+      let newState = { ...state, dataQuestions: action.dataQuestions };
+      return newState;
+    }
     case "correct_answer": {
       let flag = false;
       let aaa = [...state.answeredQuestion, action.numberQuestion];
@@ -47,6 +54,15 @@ function questionReducer(state = initState, action) {
       let newState = { ...state, popupState: null };
       return newState;
     }
+    case "isBurgerOPen": {
+      let newState = { ...state, isBurgerOPen: action.isBurgerOPen };
+      return newState;
+    }
+    case "pagination": {
+      let newState = { ...state, dataPagination: action.dataPagination };
+      return newState;
+    }
+
     default:
       return state;
   }

@@ -7,13 +7,15 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import questionReducer from "../redux/questionReducer";
 import Popup from "./Popup";
+import { Routes, Route } from "react-router-dom";
+
 const store = createStore(questionReducer);
 
 const Quiz = (props) => {
   const [dataQuestions, setdataQuestions] = useState([]);
-
   useEffect(() => {
-    fetch("http://localhost:3500/question")
+    let url = "http://localhost:3500/question";
+    fetch(url)
       .then((response) => response.json())
       .then((json) => setdataQuestions(json));
   }, []);
@@ -21,8 +23,10 @@ const Quiz = (props) => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Header lengthOfQuestion={dataQuestions.length} />
-        <Main questions={dataQuestions} />
+        <Header questions={dataQuestions} />
+        <Routes>
+          <Route path="/" element={<Main questions={dataQuestions} />} />
+        </Routes>
         <Footer />
         <Popup />
       </BrowserRouter>

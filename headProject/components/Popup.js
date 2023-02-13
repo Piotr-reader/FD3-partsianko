@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./Main.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import "./Popup.css";
 
 const Popup = (props) => {
   const popupState = useSelector((state) => state.popupState);
@@ -31,7 +32,7 @@ const Popup = (props) => {
   };
 
   return (
-    <div id="popup" className="popup" style={{ opacity: opacity, visibility: visibility }}>
+    <div id="popup" className="Popup" style={{ opacity: opacity, visibility: visibility }}>
       <div className="popup_body">
         <div className="popup_content" style={{ opacity: opacity, transform: transform }}>
           <button className="popup_close" onClick={btnCancel}>
