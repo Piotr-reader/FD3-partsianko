@@ -38,7 +38,7 @@ const Header = (props) => {
   const giftBtn = () => {
     const popupProps = {
       popup_text:
-        props.lengthOfQuestion !== answeredQuestionLength.length
+        props.questions.length !== answeredQuestionLength.length
           ? "Вам нужно верно ответить на все семь вопросов."
           : "Семь из&nbsp;семи, наши поздравления! Теперь можете получить свой бонус у&nbsp;администратора. <br>  Надеемся, что вам понравилось! Если квест, действительно, пришёлся вам по&nbsp;душе или есть какие-то пожелания по&nbsp;нему, то&nbsp;будем признательны, если упомянете об&nbsp;этом в&nbsp;своих социальных сетях, отметив при этом нас&mdash; нам будет о-о-очень приятно! В&nbsp;любом случае, будем рады если подпишетесь на&nbsp;наши социальные сети, которые найдете внизу страницы.",
       btnReset: false,

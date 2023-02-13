@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
 import "./Main.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -53,7 +52,4 @@ const Popup = (props) => {
     </div>
   );
 };
-// Popup.propTypes = {
-//   question: PropTypes.object.isRequired,
-// };
 export default Popup;
