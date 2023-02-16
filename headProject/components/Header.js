@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Pagination from "./Pagination";
 
-
 const Header = (props) => {
   const answeredQuestionLength = useSelector((state) => state.answeredQuestion);
   const allDataQuestions = useSelector((state) => state.allDataQuestions);
@@ -38,7 +37,7 @@ const Header = (props) => {
   const giftBtn = () => {
     const popupProps = {
       popup_text:
-      allDataQuestions.length !== answeredQuestionLength.length
+        allDataQuestions.length !== answeredQuestionLength.length
           ? "Вам нужно верно ответить на все семь вопросов."
           : "Семь из&nbsp;семи, наши поздравления! Теперь можете получить свой бонус у&nbsp;администратора. <br>  Надеемся, что вам понравилось! Если квест, действительно, пришёлся вам по&nbsp;душе или есть какие-то пожелания по&nbsp;нему, то&nbsp;будем признательны, если упомянете об&nbsp;этом в&nbsp;своих социальных сетях, отметив при этом нас&mdash; нам будет о-о-очень приятно! В&nbsp;любом случае, будем рады если подпишетесь на&nbsp;наши социальные сети, которые найдете внизу страницы.",
       btnReset: false,
@@ -86,10 +85,9 @@ const Header = (props) => {
           <NavLink className="menu_text" to="/">
             Квест
           </NavLink>
-            <NavLink className="menu_text" to="/navbar" onClick={burgerOpen}>
-              Список вопросов
-            </NavLink>
-
+          <NavLink className="menu_text" to="/navbar" onClick={burgerOpen}>
+            Список вопросов
+          </NavLink>
         </div>
       </div>
       <div className="pagination">
@@ -100,7 +98,5 @@ const Header = (props) => {
     </header>
   );
 };
-
-
 
 export default Header;

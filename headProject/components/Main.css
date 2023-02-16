@@ -85,10 +85,10 @@
   cursor: pointer;
 }
 .Main .correct-answer-board__text {
-  font-size: 14px;
-  color: #2a2c2f;
+  font-size: 16px;
+  color: white;
   line-height: 1.25;
-  margin: 0 0 10px;
+  padding: 5px;
 }
 .Main .board {
   background-color: #fff;

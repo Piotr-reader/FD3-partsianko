@@ -1,13 +1,12 @@
 import React, { useEffect, Fragment } from "react";
 import Header from "./Header";
 import Main from "./Main";
+import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Popup from "./Popup";
-import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 
 const Quiz = (props) => {
   const dataPagination = useSelector((state) => state.dataPagination);
@@ -34,15 +33,15 @@ const Quiz = (props) => {
   }, [dataPagination]);
   console.log("Quiz");
   return (
-      <BrowserRouter>
-          <Header/>
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/navbar" element={<Navbar />} />
-            </Routes>
-          <Footer />
-          <Popup />
-    </BrowserRouter>
+    <Fragment>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/navbar" element={<Navbar />} />
+      </Routes>
+      <Footer />
+      <Popup />
+    </Fragment>
   );
 };
 

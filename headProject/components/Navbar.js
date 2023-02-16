@@ -8,13 +8,13 @@ const Navbar = (props) => {
   console.log("Navbar");
   return (
     <div>
-    <nav className="navbar_container">
-      <div className="navbar" style={{ left: isBurgerOpen }}>
-        <ul className="navbar_width">
-          <NavbarHeader/>
-        </ul>
-      </div>
-    </nav>
+      <nav className="navbar_container">
+        <div className="navbar" style={{ left: isBurgerOpen }}>
+          <ul className="navbar_width">
+            <NavbarHeader />
+          </ul>
+        </div>
+      </nav>
     </div>
   );
 };
