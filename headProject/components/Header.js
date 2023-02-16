@@ -50,7 +50,7 @@ const Header = (props) => {
 
   let root = "/";
   isBurgerOPen === "0" ? (root = "/") : (root = "/navbar");
-  console.log("Header");
+
   return (
     <header className="Header">
       <div className="header__info">

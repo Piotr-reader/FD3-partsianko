@@ -64,7 +64,7 @@ const Main = (props) => {
       </Fragment>
     );
   });
-  console.log("Main");
+
   return (
     <main className="Main">
       <h1 className="header__title">КВЕСТ ПО&nbsp;ВЫСТАВКЕ ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ: ХУДОЖНИК ИЛИ МАШИНА?</h1>

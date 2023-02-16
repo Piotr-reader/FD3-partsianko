@@ -11,8 +11,8 @@ const Pagination = (props) => {
     });
   };
 
-  let numberBtns = Math.floor(allDataQuestions.length / 2);
-  allDataQuestions.length % 2 !== 0 ? numberBtns++ : numberBtns;
+  let numberBtns = Math.floor(allDataQuestions.length / 20);
+  allDataQuestions.length % 20 !== 0 ? numberBtns++ : numberBtns;
 
   let btns = [];
 

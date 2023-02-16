@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const Navbar = (props) => {
   const isBurgerOpen = useSelector((state) => state.isBurgerOPen);
 
-  console.log("Navbar");
   return (
     <div>
       <nav className="navbar_container">

@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = (props) => {
-  console.log("Footer");
   return (
     <footer className="Footer">
       <h2 className="footer__heading">Наши социальные сети</h2>

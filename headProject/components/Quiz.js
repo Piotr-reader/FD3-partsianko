@@ -15,7 +15,7 @@ const Quiz = (props) => {
   useEffect(() => {
     let url = "http://localhost:3500/question";
     if (dataPagination) {
-      url = `http://localhost:3500/question?_limit=2&_page=${dataPagination}`;
+      url = `http://localhost:3500/question?_limit=20&_page=${dataPagination}`;
     }
     fetch(url)
       .then((response) => response.json())
@@ -33,7 +33,6 @@ const Quiz = (props) => {
       });
   }, [dataPagination]);
 
-  console.log("render Quiz");
   return (
     <Fragment>
       <Header />
