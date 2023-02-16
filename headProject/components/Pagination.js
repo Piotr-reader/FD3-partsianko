@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 const Pagination = (props) => {
   const dispatch = useDispatch();
+  const allDataQuestions = useSelector((state) => state.allDataQuestions);
   const setData = (i) => {
     dispatch({
       type: "pagination",
@@ -11,8 +11,8 @@ const Pagination = (props) => {
     });
   };
 
-  let numberBtns = Math.floor(props.questions.length / 2);
-  props.questions.length % 2 !== 0 ? numberBtns++ : numberBtns;
+  let numberBtns = Math.floor(allDataQuestions.length / 2);
+  allDataQuestions.length % 2 !== 0 ? numberBtns++ : numberBtns;
 
   let btns = [];
 
@@ -26,7 +26,5 @@ const Pagination = (props) => {
 
   return btns;
 };
-Pagination.propTypes = {
-  questions: PropTypes.array.isRequired,
-};
+
 export default Pagination;

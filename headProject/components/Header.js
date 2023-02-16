@@ -1,16 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Routes, Route } from "react-router-dom";
+
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import Navbar from "./Navbar";
+
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Pagination from "./Pagination";
-import Main from "./Main";
+
 
 const Header = (props) => {
   const answeredQuestionLength = useSelector((state) => state.answeredQuestion);
+  const allDataQuestions = useSelector((state) => state.allDataQuestions);
   const isBurgerOPen = useSelector((state) => state.isBurgerOPen);
   const dispatch = useDispatch();
   const burgerOpen = () => {
@@ -38,7 +38,7 @@ const Header = (props) => {
   const giftBtn = () => {
     const popupProps = {
       popup_text:
-        props.questions.length !== answeredQuestionLength.length
+      allDataQuestions.length !== answeredQuestionLength.length
           ? "Вам нужно верно ответить на все семь вопросов."
           : "Семь из&nbsp;семи, наши поздравления! Теперь можете получить свой бонус у&nbsp;администратора. <br>  Надеемся, что вам понравилось! Если квест, действительно, пришёлся вам по&nbsp;душе или есть какие-то пожелания по&nbsp;нему, то&nbsp;будем признательны, если упомянете об&nbsp;этом в&nbsp;своих социальных сетях, отметив при этом нас&mdash; нам будет о-о-очень приятно! В&nbsp;любом случае, будем рады если подпишетесь на&nbsp;наши социальные сети, которые найдете внизу страницы.",
       btnReset: false,
@@ -55,7 +55,8 @@ const Header = (props) => {
     });
   };
   let root = "/";
-  isBurgerOPen === "0" ? (root = "/") : (root = "/List");
+  isBurgerOPen === "0" ? (root = "/") : (root = "/navbar");
+  console.log("Header");
   return (
     <header className="Header">
       <div className="header__info">
@@ -66,7 +67,7 @@ const Header = (props) => {
         </div>
         <div className="score">
           <div>
-            Всего вопросов: <span className="total_questions">{props.questions.length}</span>
+            Всего вопросов: <span className="total_questions">{allDataQuestions.length}</span>
           </div>
           <div>
             Вы ответили на: <span className="correct_answers">{answeredQuestionLength.length}</span>
@@ -76,8 +77,8 @@ const Header = (props) => {
           <input className="form__button btn__popup_reset" type="button" value="Сбросить" onClick={refreshQuizAnswer} />
           <input className="form__button btn_gift" type="button" value="Приз" onClick={giftBtn} />
         </div>
-        <NavLink className="menu_text" to={root}>
-          <div className="header_burger" onClick={burgerOpen}>
+        <NavLink className="menu_text" to={root} onClick={burgerOpen}>
+          <div className="header_burger">
             <span></span>
           </div>
         </NavLink>
@@ -85,24 +86,21 @@ const Header = (props) => {
           <NavLink className="menu_text" to="/">
             Квест
           </NavLink>
-          <div onClick={burgerOpen}>
-            <NavLink className="menu_text" to="/List">
+            <NavLink className="menu_text" to="/navbar" onClick={burgerOpen}>
               Список вопросов
             </NavLink>
-          </div>
+
         </div>
       </div>
       <div className="pagination">
         Страница вопросов:
         <input className="btn_pagination" type="button" defaultValue="all" onClick={setAllData} />
-        <Pagination questions={props.questions} />
+        <Pagination />
       </div>
     </header>
   );
 };
 
-Header.propTypes = {
-  questions: PropTypes.array.isRequired,
-};
+
 
 export default Header;

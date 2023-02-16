@@ -1,5 +1,6 @@
 const initState = {
   dataPagination: "",
+  allDataQuestions:"",
   dataQuestions: [],
   answeredQuestion: [],
   wrongAnswer: [],
@@ -10,6 +11,10 @@ const initState = {
 
 function questionReducer(state = initState, action) {
   switch (action.type) {
+    case "allDataQuestions": {
+      let newState = { ...state, allDataQuestions: action.allDataQuestions };
+      return newState;
+    }
     case "dataQuestions": {
       let newState = { ...state, dataQuestions: action.dataQuestions };
       return newState;

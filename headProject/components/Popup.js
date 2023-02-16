@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./Main.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";

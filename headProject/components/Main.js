@@ -18,12 +18,10 @@ const Main = (props) => {
   const showAnswer = useSelector((state) => state.showAnswer);
   const dataPagination = useSelector((state) => state.dataPagination);
   const dispatch = useDispatch();
-  const [oldStorage, setOldStorage] = useState(stateLocalStorage);
   let getLocalstorageAnswers = localStorage.getItem("localData");
   getLocalstorageAnswers = JSON.parse(getLocalstorageAnswers);
   useEffect(() => {
     if (getLocalstorageAnswers) {
-      setOldStorage(getLocalstorageAnswers);
       dispatch({
         type: "data_localStorage",
         stateLocalStorage: getLocalstorageAnswers,
@@ -31,24 +29,9 @@ const Main = (props) => {
     }
   }, []);
   useEffect(() => {
-    setOldStorage(stateLocalStorage);
     localStorage.setItem("localData", JSON.stringify(stateLocalStorage));
   }, [dataPagination, answeredQuestion]);
-  // localStorage.clear();
-  useEffect(() => {
-    let url = "http://localhost:3500/question";
-    if (dataPagination) {
-      url = `http://localhost:3500/question?_limit=2&_page=${dataPagination}`;
-    }
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch({
-          type: "dataQuestions",
-          dataQuestions: json,
-        });
-      });
-  }, [stateLocalStorage.dataPagination]);
+
   let mainComponent = stateLocalStorage.dataQuestions.map((question) => {
     for (const key of answeredQuestion) {
       if (key.numberQuestion === question.question) {
@@ -80,6 +63,7 @@ const Main = (props) => {
       </Fragment>
     );
   });
+  console.log("Main");
   return (
     <main className="Main">
       <h1 className="header__title">КВЕСТ ПО&nbsp;ВЫСТАВКЕ ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ: ХУДОЖНИК ИЛИ МАШИНА?</h1>

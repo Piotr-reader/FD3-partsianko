@@ -1,36 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import questionReducer from "../redux/questionReducer";
 import Popup from "./Popup";
-import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const store = createStore(questionReducer);
 
 const Quiz = (props) => {
-  const [dataQuestions, setdataQuestions] = useState([]);
+  const dataPagination = useSelector((state) => state.dataPagination);
+  const dispatch = useDispatch();
   useEffect(() => {
     let url = "http://localhost:3500/question";
+    if (dataPagination) {
+      url = `http://localhost:3500/question?_limit=2&_page=${dataPagination}`;
+    }
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setdataQuestions(json));
-  }, []);
-
+      .then((json) => {
+        dispatch({
+          type: "dataQuestions",
+          dataQuestions: json,
+        });
+        if (!dataPagination) {
+          dispatch({
+            type: "allDataQuestions",
+            allDataQuestions: json,
+          });
+        }
+      });
+  }, [dataPagination]);
+  console.log("Quiz");
   return (
-    <Provider store={store}>
-      <Header questions={dataQuestions} />
-      <Routes>
-        <Route exact path="/" element={<Main />} />
-        <Route path="/List" element={<Navbar questions={dataQuestions} />} />
-        <Route element={<Main />} />
-      </Routes>
-      <Footer />
-      <Popup />
-    </Provider>
+      <BrowserRouter>
+          <Header/>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/navbar" element={<Navbar />} />
+            </Routes>
+          <Footer />
+          <Popup />
+    </BrowserRouter>
   );
 };
 
