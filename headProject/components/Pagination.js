@@ -16,10 +16,14 @@ const Pagination = (props) => {
 
   let btns = [];
 
-  for (let i = 0; i < numberBtns; i++) {
+  for (let i = 0; i <= numberBtns; i++) {
+    let value = "all";
+    if (i) {
+      value = i;
+    }
     btns.push(
       <Fragment key={i}>
-        <input className="btn_pagination" type="button" defaultValue={i + 1} onClick={() => setData(i + 1)} />
+        <input className="btn_pagination" type="button" defaultValue={value} onClick={() => setData(i)} />
       </Fragment>
     );
   }

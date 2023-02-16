@@ -37,6 +37,7 @@ const Question = (props) => {
     });
   };
   let img = props.question.srcImg && <img className="puzzle__image" src={props.question.srcImg} alt="Тут должно быть зашифрованное изображение." />;
+  console.log("render Question");
   return (
     <section className="puzzle" id={props.question.question}>
       <h2 className="puzzle__number">
@@ -59,4 +60,4 @@ const Question = (props) => {
 Question.propTypes = {
   question: PropTypes.object.isRequired,
 };
-export default Question;
+export default React.memo(Question);

@@ -47,12 +47,7 @@ const Header = (props) => {
       popup_description: popupProps,
     });
   };
-  const setAllData = () => {
-    dispatch({
-      type: "pagination",
-      dataPagination: "",
-    });
-  };
+
   let root = "/";
   isBurgerOPen === "0" ? (root = "/") : (root = "/navbar");
   console.log("Header");
@@ -92,11 +87,10 @@ const Header = (props) => {
       </div>
       <div className="pagination">
         Страница вопросов:
-        <input className="btn_pagination" type="button" defaultValue="all" onClick={setAllData} />
         <Pagination />
       </div>
     </header>
   );
 };
 
-export default Header;
+export default React.memo(Header);

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Navbar from "./Navbar";
@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 
 const Quiz = (props) => {
   const dataPagination = useSelector((state) => state.dataPagination);
+
   const dispatch = useDispatch();
   useEffect(() => {
     let url = "http://localhost:3500/question";
@@ -31,7 +32,8 @@ const Quiz = (props) => {
         }
       });
   }, [dataPagination]);
-  console.log("Quiz");
+
+  console.log("render Quiz");
   return (
     <Fragment>
       <Header />

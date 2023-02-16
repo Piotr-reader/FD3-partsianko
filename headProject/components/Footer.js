@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = (props) => {
+  console.log("Footer");
   return (
     <footer className="Footer">
       <h2 className="footer__heading">Наши социальные сети</h2>
@@ -33,4 +34,4 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

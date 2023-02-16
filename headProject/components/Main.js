@@ -17,6 +17,7 @@ const Main = (props) => {
   const wrongAnswer = useSelector((state) => state.wrongAnswer);
   const showAnswer = useSelector((state) => state.showAnswer);
   const dataPagination = useSelector((state) => state.dataPagination);
+
   const dispatch = useDispatch();
   let getLocalstorageAnswers = localStorage.getItem("localData");
   getLocalstorageAnswers = JSON.parse(getLocalstorageAnswers);
@@ -88,4 +89,4 @@ const Main = (props) => {
   );
 };
 
-export default Main;
+export default React.memo(Main);
